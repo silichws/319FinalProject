@@ -36,9 +36,9 @@ const render_products = (ProductsCategory) => {
                   </a>
                   <p>Tag - {product.category}</p>
                 </h3>
-                <p className="mt-1 text-sm text-gray-500">
+                {/* <p className="mt-1 text-sm text-gray-500">
                   Rating: {product.rating.rate}
-                </p>
+                </p> */}
               </div>
               <p className="text-sm font-medium text-green-600">
                 ${product.price}
