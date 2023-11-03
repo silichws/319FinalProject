@@ -1,7 +1,7 @@
 export const Products = [
     {
       "id": 1,
-      "name": "USB Rubber Ducky",
+      "title": "USB Rubber Ducky",
       "price": 79.99,
       "description": "Looks like a flashdrive. Feels like a flash drive. So much more than a flash drive.This device can be inserted into a computer and act as a keyboard. It can be programmed using duckyscript.",
       "category": "hacking tools",
@@ -9,7 +9,7 @@ export const Products = [
     },
     {
       "id": 2,
-      "name": "Raspberry Pi 3",
+      "title": "Raspberry Pi 3",
       "price": 49.99,
       "description": "Smalll but powerful. This pi is a mini computer. It has bluetooth, wifi, and GPIO pins for custimazation.",
       "category": "hacking tools",
@@ -17,7 +17,7 @@ export const Products = [
     },
     {
       "id": 3,
-      "name": "Proxmark",
+      "title": "Proxmark",
       "price": 80,
       "description": "A device for all your RFID reading needs. After downloading and running a open source software package, you can read both high and low frequency RFID cards. It can also write to cards that are set as writtable.great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.",
       "category": "hacking tools",
@@ -25,7 +25,7 @@ export const Products = [
     },
     {
       "id": 4,
-      "name": "HackRF One",
+      "title": "HackRF One",
       "price": 349.95,
       "description": "This device can transmit radio waves. The antenna attached operates between 75MHz and 1GHz. It can also set up to recive radio waves.",
       "category": "hacking tools",
@@ -33,7 +33,7 @@ export const Products = [
     },
     {
       "id": 5,
-      "name": "WIFI Adapter",
+      "title": "WIFI Adapter",
       "price": 299.99,
       "description": "This is a 2.4 GHz USB wireless adapter. This is great for sniffing WIFI packets and injection attacks on unencrypted protcols like HTTP.",
       "category": "wierless",
@@ -41,7 +41,7 @@ export const Products = [
     },
     {
       "id": 6,
-      "name": "Terrestrial Receiver",
+      "title": "Terrestrial Receiver",
       "price": 599.99,
       "description": "he Terrestrial Receiver is usb receiver which was designed to receive over the air TV-channels. This is a type of software defined radio.",
       "category": "wierless",
@@ -50,7 +50,7 @@ export const Products = [
     },
     {
       "id": 7,
-      "name": "Indoor Antenna",
+      "title": "Indoor Antenna",
       "price": 29.99,
       "description": "This indoor antenna will boost the range of WIFI adapters.",
       "category": "wireless",
@@ -58,7 +58,7 @@ export const Products = [
     },
     {
       "id": 8,
-      "Name": "Outdoor Antenna",
+      "title": "Outdoor Antenna",
       "price": 39.99,
       "description": "This is a larger antenna meant for outdoor use. It is water proof and works best for wifi signal, but can also recieve radio signals.",
       "category": "wireless",
