@@ -56,9 +56,25 @@ const App = () => {
 
   const [ProductsCategory] = useState(Products);
 
-  function handleClick(tag) {
-	
+  const [query, setQuery] = useState("");
 
+  function handleClick(tag) {}
+
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+    console.log(
+      "Step 6 : in handleChange, Target Value :",
+      e.target.value,
+      " Query Value :",
+      query
+    );
+    const results = Products.filter((eachProduct) => {
+      if (e.target.value === "") return ProductsCategory;
+      return eachProduct.title
+        .toLowerCase()
+        .includes(e.target.value.toLowerCase());
+    });
+    // setProductsCategory(results);
   }
 
   return (
@@ -78,6 +94,9 @@ const App = () => {
             {" "}
             IASG Online Store{" "}
           </h1>
+          <div className="py-10">
+            <input type="search" value={query} onChange={handleChange} />
+          </div>
           {/* <p className="text-gray-700 text-white">
             by - <b style={{ color: 'orange' }}>Design Shubham, Development Abraham</b>
           </p> */}
