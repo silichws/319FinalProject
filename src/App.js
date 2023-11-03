@@ -6,7 +6,7 @@ import { Products } from "./Products";
 const render_products = (ProductsCategory) => {
   return (
     <div className="category-section fixed">
-      {console.log("Step 3 : in render_products ")}
+      {/* {console.log("Step 3 : in render_products ")} */}
       <h2 className="text-3xl font-extrabold tracking-tight text-gray-600 category-title">
         Products ({ProductsCategory.length})
       </h2>
@@ -52,9 +52,7 @@ const render_products = (ProductsCategory) => {
 };
 
 const App = () => {
-  console.log("Step 1 : load Products in a useState.");
-
-  const [ProductsCategory] = useState(Products);
+  const [ProductsCategory, setProductsCategory] = useState(Products);
 
   const [query, setQuery] = useState("");
 
@@ -70,20 +68,17 @@ const App = () => {
     );
     const results = Products.filter((eachProduct) => {
       if (e.target.value === "") return ProductsCategory;
+	  console.log(eachProduct);
+	  console.log(e.target.value.toLowerCase());
       return eachProduct.title
         .toLowerCase()
         .includes(e.target.value.toLowerCase());
     });
-    // setProductsCategory(results);
-  }
+    setProductsCategory(results);
+  };
 
   return (
     <div className="flex fixed flex-row">
-      {console.log(
-        "Step 2 : Return App :",
-        Products.length,
-        ProductsCategory.length
-      )}
       <div
         className="h-screen  bg-slate-800 p-3 xl:basis-1/5"
         style={{ minWidth: "65%" }}
@@ -95,7 +90,15 @@ const App = () => {
             IASG Online Store{" "}
           </h1>
           <div className="py-10">
-            <input type="search" value={query} onChange={handleChange} />
+            <input
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700
+dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              type="search"
+              value={query}
+              onChange={handleChange}
+            />
           </div>
           {/* <p className="text-gray-700 text-white">
             by - <b style={{ color: 'orange' }}>Design Shubham, Development Abraham</b>
@@ -109,26 +112,10 @@ const App = () => {
         </div>
       </div>
       <div className="ml-5  p-10 xl:basis-4/5">
-        {console.log(
-          "Before render :",
-          Products.length,
-          ProductsCategory.length
-        )}
         {render_products(ProductsCategory)}
       </div>
     </div>
   );
 };
-
-// function App() {
-//   return <div>
-
-// 		console.log("Step 1 : load Products in a useState.");
-
-// 		const ProductsCategory = useState(Products);
-// 		{Products[0].description}
-
-// 	</div>;
-// }
 
 export default App;
