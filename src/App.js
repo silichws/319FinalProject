@@ -4,6 +4,17 @@ import React, { useState, useEffect } from "react";
 import { Products } from "./Products";
 
 const App = () => {
+  // this.setState({
+  // 	1:0,
+  // 	2:1,
+  // 	3:0,
+  // 	4:0,
+  // 	5:0,
+  // 	6:0,
+  // 	7:0,
+  // 	8:0,
+  // }
+  // );
   function toggleViews() {
     setIsBrowseViewVisible(!isBrowseViewVisible);
     setIsCartViewVisible(!isCartViewVisible);
@@ -33,71 +44,50 @@ const App = () => {
   // CART CODE ################
   const [cart, setCart] = useState([]);
 
-//   const addToCart = (item) => {
-// 	console.log(item);
-//     const existingCart = cart.find((cartItem) => cartItem.id === item.id);
-
-//   if (existingCart) {
-//     const updatedCart = cart.map((cartItem) => {
-//       if (cartItem.id === item.id) {
-//         return { ...cartItem, quantity: cartItem.quantity + 1 };
-//       }
-//       return cartItem;
-//     });
-
-//     setCart(updatedCart);
-//   } else {
-//     setCart([...cart, { ...item, quantity: 1 }]);
-//   }
-//   };
-
-//   const removeFromCart = (el) => {
-//     let hardCopy = [...cart];
-//     hardCopy = hardCopy.filter((cartItem) => cartItem.id !== el.id);
-//     setCart(hardCopy);
-//   };
-
-const addToCart = (item) => {
-	console.log(item);
-	const updatedCart = cart.map((cartItem) => {
-	  if (cartItem.id === item.id) {
-		return { ...cartItem, quantity: cartItem.quantity + 1 };
-	  }
-	  console.log(cartItem);
-	  return cartItem;
-	});
-  
-	setCart(updatedCart);
+  const getQuan = (item) => {
+    return item.quantity;
   };
-  
-  const removeFromCart = (item) => {
-	const updatedCart = cart.map((cartItem) => {
-	  if (cartItem.id === item.id && cartItem.quantity > 0) {
-		return { ...cartItem, quantity: cartItem.quantity - 1 };
-	  }
-	  return cartItem;
-	});
-  
-	setCart(updatedCart);
+
+  const addToCart = (item) => {
+    console.log(item);
+    const existingCart = cart.find((cartItem) => cartItem.id === item.id);
+
+    if (existingCart) {
+      const updatedCart = cart.map((cartItem) => {
+        if (cartItem.id === item.id) {
+          return { ...cartItem, quantity: cartItem.quantity + 1 };
+        }
+        return cartItem;
+      });
+
+      setCart(updatedCart);
+    } else {
+      setCart([...cart, { ...item, quantity: 1 }]);
+    }
+	console.log(cart);
+  };
+
+  const removeFromCart = (el) => {
+    const updatedCart = cart.map((cartItem) => {
+      if (cartItem.id === el.id && cartItem.quantity > 0) {
+        return { ...cartItem, quantity: cartItem.quantity - 1 };
+      }
+      return cartItem;
+    });
+
+    setCart(updatedCart);
   };
 
   const cartItems = cart.map((item) => (
     <div key={item.id}>
       <img className="img-fluid" src={item.image} width={150} />
-      {item.title}<br></br>
-	  ${item.price}<br></br>
-	  {item.quantity}
+      {item.title}
+      <br></br>${item.price}
+      <br></br>
+      {item.quantity}
     </div>
   ));
 
-  //   const listItems = items.map((el) => (
-  // 	<div key={el.id}>
-  // 	  <img className="img-fluid" src={el.image} width={150} /> <br />
-  // 	  {el.title} <br />
-  // 	  {el.category} <br />
-  // 	  {el.price} <br />
-  // 	</div>
-  // 	));
   // CONFIRMATION CODE ################
 
   const showProducts = (ProductsCategory) => {
@@ -123,8 +113,9 @@ const addToCart = (item) => {
                     </span>
                     <p className="card-text">
                       {product.price} <br></br>
-					  <strong>Description: </strong>
-                      {product.description}<br></br>
+                      <strong>Description: </strong>
+                      {product.description}
+                      <br></br>
                       <strong>Tag</strong> - {product.category}
                     </p>
                     <div className="d-flex justify-content-between align-items-center">
@@ -137,7 +128,9 @@ const addToCart = (item) => {
                         {" "}
                         plus+{" "}
                       </button>
-					  <span className="item-quantity">Quantity: {product.quantity}</span>
+                      <span className="item-quantity">
+                        Quantity: {cart.find((item) => item.id === product.id)?.quantity ?? 0}
+                      </span>
                       <button
                         onClick={() => {
                           removeFromCart(product);
@@ -269,7 +262,7 @@ dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
       <div
         className="cartView"
-        style={{ display: isCartViewVisible ? "block" : "none" }}
+        // style={{ display: isCartViewVisible ? "block" : "none" }}
       >
         <h1>This is a cart</h1>
         <div>Itesm in Cart :</div>
