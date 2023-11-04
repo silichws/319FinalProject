@@ -33,20 +33,60 @@ const App = () => {
   // CART CODE ################
   const [cart, setCart] = useState([]);
 
-  const addToCart = (el) => {
-    setCart([...cart, el]);
+//   const addToCart = (item) => {
+// 	console.log(item);
+//     const existingCart = cart.find((cartItem) => cartItem.id === item.id);
+
+//   if (existingCart) {
+//     const updatedCart = cart.map((cartItem) => {
+//       if (cartItem.id === item.id) {
+//         return { ...cartItem, quantity: cartItem.quantity + 1 };
+//       }
+//       return cartItem;
+//     });
+
+//     setCart(updatedCart);
+//   } else {
+//     setCart([...cart, { ...item, quantity: 1 }]);
+//   }
+//   };
+
+//   const removeFromCart = (el) => {
+//     let hardCopy = [...cart];
+//     hardCopy = hardCopy.filter((cartItem) => cartItem.id !== el.id);
+//     setCart(hardCopy);
+//   };
+
+const addToCart = (item) => {
+	console.log(item);
+	const updatedCart = cart.map((cartItem) => {
+	  if (cartItem.id === item.id) {
+		return { ...cartItem, quantity: cartItem.quantity + 1 };
+	  }
+	  console.log(cartItem);
+	  return cartItem;
+	});
+  
+	setCart(updatedCart);
+  };
+  
+  const removeFromCart = (item) => {
+	const updatedCart = cart.map((cartItem) => {
+	  if (cartItem.id === item.id && cartItem.quantity > 0) {
+		return { ...cartItem, quantity: cartItem.quantity - 1 };
+	  }
+	  return cartItem;
+	});
+  
+	setCart(updatedCart);
   };
 
-  const removeFromCart = (el) => {
-    let hardCopy = [...cart];
-    hardCopy = hardCopy.filter((cartItem) => cartItem.id !== el.id);
-    setCart(hardCopy);
-  };
-
-  const cartItems = cart.map((el) => (
-    <div key={el.id}>
-      <img className="img-fluid" src={el.image} width={150} />
-      {el.title}${el.price}
+  const cartItems = cart.map((item) => (
+    <div key={item.id}>
+      <img className="img-fluid" src={item.image} width={150} />
+      {item.title}<br></br>
+	  ${item.price}<br></br>
+	  {item.quantity}
     </div>
   ));
 
@@ -71,39 +111,36 @@ const App = () => {
           style={{ maxHeight: "800px", overflowY: "scroll" }}
         ></div>
 
-        <div class="container">
-          <div class="row row-cols-1 row-cols-md-3 g-3">
+        <div className="container">
+          <div className="row row-cols-1 row-cols-md-3 g-3">
             {ProductsCategory.map((product, index) => (
-              <div class="col" key={index}>
-                <div class="card shadow-sm">
+              <div className="col" key={index}>
+                <div className="card shadow-sm">
                   <img alt="Product Image" src={product.image} />
-                  <div class="card-body">
+                  <div className="card-body">
                     <span style={{ fontSize: "16px", fontWeight: "600" }}>
                       {product.title}
                     </span>
-                    <p class="card-text">
-                      {product.price}{" "}
-                      <p>
-                        <strong>Description</strong> - {product.description}
-                      </p>
-					  <p>
-                        <strong>Tag</strong> - {product.category}
-                      </p>
+                    <p className="card-text">
+                      {product.price} <br></br>
+					  <strong>Description: </strong>
+                      {product.description}<br></br>
+                      <strong>Tag</strong> - {product.category}
                     </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      
+                    <div className="d-flex justify-content-between align-items-center">
                       <button
                         onClick={() => {
-                          addToCart(ProductsCategory);
+                          addToCart(product);
                         }}
                         className="btn btn-sm btn-primary"
                       >
                         {" "}
                         plus+{" "}
                       </button>
+					  <span className="item-quantity">Quantity: {product.quantity}</span>
                       <button
                         onClick={() => {
-                          addToCart(ProductsCategory);
+                          removeFromCart(product);
                         }}
                         className="btn btn-sm btn-primary"
                       >
