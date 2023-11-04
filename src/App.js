@@ -45,14 +45,14 @@ const App = () => {
 
   const cartItems = cart.map((el) => (
     <div key={el.id}>
-      <img class="img-fluid" src={el.image} width={150} />
+      <img className="img-fluid" src={el.image} width={150} />
       {el.title}${el.price}
     </div>
   ));
 
   //   const listItems = items.map((el) => (
   // 	<div key={el.id}>
-  // 	  <img class="img-fluid" src={el.image} width={150} /> <br />
+  // 	  <img className="img-fluid" src={el.image} width={150} /> <br />
   // 	  {el.title} <br />
   // 	  {el.category} <br />
   // 	  {el.price} <br />
@@ -60,9 +60,70 @@ const App = () => {
   // 	));
   // CONFIRMATION CODE ################
 
+  const showProducts = (ProductsCategory) => {
+    return (
+      <div>
+        <h2 className="text-3xl font-extrabold tracking-tight text-gray-600 category-title">
+          Products ({ProductsCategory.length})
+        </h2>
+        <div
+          className="m-6 p-3 mt-10 ml-0 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-6 xl:gap-x-10"
+          style={{ maxHeight: "800px", overflowY: "scroll" }}
+        ></div>
+
+        <div class="container">
+          <div class="row row-cols-1 row-cols-md-3 g-3">
+            {ProductsCategory.map((product, index) => (
+              <div class="col" key={index}>
+                <div class="card shadow-sm">
+                  <img alt="Product Image" src={product.image} />
+                  <div class="card-body">
+                    <span style={{ fontSize: "16px", fontWeight: "600" }}>
+                      {product.title}
+                    </span>
+                    <p class="card-text">
+                      {product.price}{" "}
+                      <p>
+                        <strong>Description</strong> - {product.description}
+                      </p>
+					  <p>
+                        <strong>Tag</strong> - {product.category}
+                      </p>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      
+                      <button
+                        onClick={() => {
+                          addToCart(ProductsCategory);
+                        }}
+                        className="btn btn-sm btn-primary"
+                      >
+                        {" "}
+                        plus+{" "}
+                      </button>
+                      <button
+                        onClick={() => {
+                          addToCart(ProductsCategory);
+                        }}
+                        className="btn btn-sm btn-primary"
+                      >
+                        {" "}
+                        minus-{" "}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const render_products = (ProductsCategory) => {
     return (
-      <div className="category-section fixed">
+      <div className="category-section">
         <h2 className="text-3xl font-extrabold tracking-tight text-gray-600 category-title">
           Products ({ProductsCategory.length})
         </h2>
@@ -91,10 +152,15 @@ const App = () => {
                       </span>
                     </a>
                     <p>Tag - {product.category}</p>
-					<button class="btn btn-md btn-primary" onClick={() => toggleViews()}>Show Cart</button>
-					{/* <button
+                    <button
+                      className="btn btn-md btn-primary"
+                      onClick={() => console.log("click")}
+                    >
+                      Show Cart
+                    </button>
+                    {/* <button
                       onClick={() => {console.log("Button clicked"); addToCart(ProductsCategory)}}
-					  class="btn btn-sm btn-primary"
+					  className="btn btn-sm btn-primary"
                     >
                       {" "}
                       plus+{" "}
@@ -102,11 +168,10 @@ const App = () => {
                     <button
                       type="button"
                       onClick={() => removeFromCart(ProductsCategory)}
-					  class="btn btn-sm btn-primary"
+					  className="btn btn-sm btn-primary"
                     >
                       minus-
                     </button> */}
-                    
                   </h3>
                   {/* <p className="mt-1 text-sm text-gray-500">
 					Rating: {product.rating.rate}
@@ -124,22 +189,21 @@ const App = () => {
   };
   return (
     <div>
-      <button class="btn btn-md btn-primary" onClick={() => toggleViews()}>Show Cart</button>
+      <button className="btn btn-md btn-primary" onClick={() => toggleViews()}>
+        Show Cart
+      </button>
       <div
         className="browseView"
         style={{ display: isBrowseViewVisible ? "block" : "none" }}
       >
-        <div className="flex fixed flex-row">
+        <div>
           <div
-            className="h-screen  bg-slate-800 p-3 xl:basis-1/5"
-            style={{ minWidth: "65%" }}
+          // className="h-screen  bg-slate-800 p-3 xl:basis-1/5"
+          // style={{ minWidth: "65%" }}
           >
             {/* <img className="w-full" src={logo} alt="Sunset in the mountains" /> */}
-            <div className="px-6 py-4">
-              <h1 className="text-3xl mb-2 font-bold text-white">
-                {" "}
-                IASG Online Store{" "}
-              </h1>
+            <div>
+              <h1> IASG Online Store </h1>
               <div className="py-10">
                 <input
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
@@ -162,11 +226,8 @@ dark:focus:ring-blue-500 dark:focus:border-blue-500"
           </div> */}
             </div>
           </div>
-          <div className="ml-5  p-10 xl:basis-4/5">
-            {render_products(ProductsCategory)}			
-          </div>
+          <div>{showProducts(ProductsCategory)}</div>
         </div>
-		<button class="btn btn-md btn-primary" onClick={() => toggleViews()}>Show Cart</button>
       </div>
 
       <div

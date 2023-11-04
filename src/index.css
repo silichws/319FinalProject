@@ -16,7 +16,10 @@ code {
     monospace;
 }
 
-.browseView
+/* .browseView
 {
   display: none;
+} */
+body {
+  overflow: visible;
 }
