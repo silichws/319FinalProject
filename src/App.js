@@ -4,6 +4,14 @@ import React, { useState, useEffect } from "react";
 import { Products } from "./Products";
 
 const App = () => {
+  function toggleViews() {
+    setIsBrowseViewVisible(!isBrowseViewVisible);
+    setIsCartViewVisible(!isCartViewVisible);
+  }
+
+  const [isBrowseViewVisible, setIsBrowseViewVisible] = useState(true);
+  const [isCartViewVisible, setIsCartViewVisible] = useState(false);
+
   // BROWSE CODE ################
   const [ProductsCategory, setProductsCategory] = useState(Products);
 
@@ -35,6 +43,13 @@ const App = () => {
     setCart(hardCopy);
   };
 
+  const cartItems = cart.map((el) => (
+    <div key={el.id}>
+      <img class="img-fluid" src={el.image} width={150} />
+      {el.title}${el.price}
+    </div>
+  ));
+
   //   const listItems = items.map((el) => (
   // 	<div key={el.id}>
   // 	  <img class="img-fluid" src={el.image} width={150} /> <br />
@@ -48,7 +63,6 @@ const App = () => {
   const render_products = (ProductsCategory) => {
     return (
       <div className="category-section fixed">
-        {/* {console.log("Step 3 : in render_products ")} */}
         <h2 className="text-3xl font-extrabold tracking-tight text-gray-600 category-title">
           Products ({ProductsCategory.length})
         </h2>
@@ -77,20 +91,22 @@ const App = () => {
                       </span>
                     </a>
                     <p>Tag - {product.category}</p>
+					<button class="btn btn-md btn-primary" onClick={() => toggleViews()}>Show Cart</button>
+					{/* <button
+                      onClick={() => {console.log("Button clicked"); addToCart(ProductsCategory)}}
+					  class="btn btn-sm btn-primary"
+                    >
+                      {" "}
+                      plus+{" "}
+                    </button>
                     <button
                       type="button"
                       onClick={() => removeFromCart(ProductsCategory)}
+					  class="btn btn-sm btn-primary"
                     >
-                      -
-                    </button>{" "}
-                    <button
-                      type="button"
-                      variant="light"
-                      onClick={() => addToCart(ProductsCategory)}
-                    >
-                      {" "}
-                      +{" "}
-                    </button>
+                      minus-
+                    </button> */}
+                    
                   </h3>
                   {/* <p className="mt-1 text-sm text-gray-500">
 					Rating: {product.rating.rate}
@@ -108,7 +124,11 @@ const App = () => {
   };
   return (
     <div>
-      <div className="browseView">
+      <button class="btn btn-md btn-primary" onClick={() => toggleViews()}>Show Cart</button>
+      <div
+        className="browseView"
+        style={{ display: isBrowseViewVisible ? "block" : "none" }}
+      >
         <div className="flex fixed flex-row">
           <div
             className="h-screen  bg-slate-800 p-3 xl:basis-1/5"
@@ -143,15 +163,21 @@ dark:focus:ring-blue-500 dark:focus:border-blue-500"
             </div>
           </div>
           <div className="ml-5  p-10 xl:basis-4/5">
-            {render_products(ProductsCategory)}
+            {render_products(ProductsCategory)}			
           </div>
         </div>
+		<button class="btn btn-md btn-primary" onClick={() => toggleViews()}>Show Cart</button>
       </div>
 
-      <div className="cartView"></div>
-      <div className="confirmationView">
-        <h1>This is a test</h1>
+      <div
+        className="cartView"
+        style={{ display: isCartViewVisible ? "block" : "none" }}
+      >
+        <h1>This is a cart</h1>
+        <div>Itesm in Cart :</div>
+        <div>{cartItems}</div>
       </div>
+      <div className="confirmationView"></div>
     </div>
   );
 };
