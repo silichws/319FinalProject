@@ -147,13 +147,12 @@ const App = () => {
 	  if (formData.state.trim() === "") {
         errors.state = "State is required";
       }
-	  if (formData.zip.trim() === "") {
+	  if (isNaN(formData.zip) || formData.zip.length !== 5) {
         errors.zip = "Zip code is required";
       }
       if (!formData.card.match(/^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/)) {
         errors.card = "Invalid card format";
       }
-
       if (Object.keys(errors).length === 0) {
         alert("Form is valid and can be submitted.");
       } else {
