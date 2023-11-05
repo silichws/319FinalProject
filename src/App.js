@@ -4,18 +4,26 @@ import React, { useState, useEffect } from "react";
 import { Products } from "./Products";
 
 const App = () => {
+  const [ProductsCategory, setProductsCategory] = useState(Products);
+
+  const [query, setQuery] = useState("");
+
   function toggleViews() {
     setIsBrowseViewVisible(!isBrowseViewVisible);
     setIsCartViewVisible(!isCartViewVisible);
+
+    const searchInput = document.getElementById("search");
+    console.log(searchInput.value);
+    searchInput.value = "";
+    setQuery("");
+
+    handleChange({ target: { value: "" } });
   }
 
   const [isBrowseViewVisible, setIsBrowseViewVisible] = useState(true);
   const [isCartViewVisible, setIsCartViewVisible] = useState(false);
 
   // BROWSE CODE ################
-  const [ProductsCategory, setProductsCategory] = useState(Products);
-
-  const [query, setQuery] = useState("");
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -33,12 +41,8 @@ const App = () => {
   // CART CODE ################
   const [cart, setCart] = useState([]);
 
-  const getQuan = (item) => {
-    return item.quantity;
-  };
-
   const addToCart = (item) => {
-    console.log(item);
+    // console.log(item);
     const existingCart = cart.find((cartItem) => cartItem.id === item.id);
 
     if (existingCart) {
@@ -53,7 +57,7 @@ const App = () => {
     } else {
       setCart([...cart, { ...item, quantity: 1 }]);
     }
-    console.log(cart);
+    // console.log(cart);
   };
 
   const removeFromCart = (item) => {
@@ -71,11 +75,6 @@ const App = () => {
     .filter((item) => item.quantity >= 1)
     .map((item) => (
       <div key={item.id}>
-        {/* <img className="img-fluid" src={item.image} width={150} />
-        {item.title}
-        <br></br>${item.price}
-        <br></br>
-        {item.quantity} */}
         <div className="row border-top border-bottom" key={item.id}>
           <div className="row main align-items-center">
             <div className="col-2">
@@ -87,14 +86,14 @@ const App = () => {
             </div>
             <div className="col"></div>
             <div className="col">${item.price}</div>
-			<div className="col">Quantity: {item.quantity}</div>
+            <div className="col">Quantity: {item.quantity}</div>
           </div>
         </div>
       </div>
     ));
 
   const cartTotal = () => {
-    console.log("trying to get total");
+    // console.log("trying to get total");
     const total = cart.reduce((acc, item) => {
       const itemPrice = item.price * item.quantity;
       if (item.quantity >= 0) {
@@ -103,10 +102,242 @@ const App = () => {
 
       return acc;
     }, 0);
-    console.log(total);
+    // console.log(total);
 
     return total;
   };
+
+  // VALIDATION ##################
+  function CheckoutForm() {
+    const [formData, setFormData] = useState({
+      name: "",
+      email: "",
+      card: "",
+      address: "",
+      address2: "",
+      city: "",
+      state: "",
+      zip: "",
+    });
+
+    const [validationErrors, setValidationErrors] = useState({});
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+      setValidationErrors({ ...validationErrors, [name]: "" });
+    };
+    const handleSubmit = (e) => {
+      e.preventDefault();
+
+      // Validate the form data
+      const errors = {};
+      if (!formData.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+        errors.email = "Invalid email address";
+      }
+      if (formData.name.trim() === "") {
+        errors.name = "Name is required";
+      }
+	  if (formData.address.trim() === "") {
+        errors.address = "Address is required";
+      }
+	  if (formData.city.trim() === "") {
+        errors.city = "City is required";
+      }
+	  if (formData.state.trim() === "") {
+        errors.state = "State is required";
+      }
+	  if (formData.zip.trim() === "") {
+        errors.zip = "Zip code is required";
+      }
+      if (!formData.card.match(/^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/)) {
+        errors.card = "Invalid card format";
+      }
+
+      if (Object.keys(errors).length === 0) {
+        alert("Form is valid and can be submitted.");
+      } else {
+        setValidationErrors(errors);
+      }
+    };
+
+    return (
+      <div>
+        <div class="container">
+          <div class="row">
+            <div class="col-2"></div>
+
+            <div class="col-8">
+              <h1 className="text-3xl category-title">Payment Information</h1>
+
+              <div id="liveAlertPlaceholder"></div>
+              <form
+                className="row g-3"
+                id="checkout-form"
+                onSubmit={handleSubmit}
+              >
+                <div class="col-md-6">
+                  <label for="inputName" class="form-label">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    className={`form-control ${
+                      validationErrors.name ? "is-invalid" : ""
+                    }`}
+                    id="inputName"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">Must be like, "John Doe"</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="inputEmail" class="form-label">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    className={`form-control ${
+                      validationErrors.email ? "is-invalid" : ""
+                    }`}
+                    id="inputEmail"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">
+                    Must be like, "abc@xyz.efg"
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <label for="inputCard" class="form-label">
+                    Card Number
+                  </label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">
+                      <i class="bi-credit-card-fill"></i>
+                    </span>
+                    <input
+                      placeholder="XXXX-XXXX-XXXX-XXXX"
+                      type="text"
+                      className={`form-control ${
+                        validationErrors.card ? "is-invalid" : ""
+                      }`}
+                      id="inputCard"
+                      name="card"
+                      value={formData.card}
+                      onChange={handleChange}
+                    />
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">
+                      Must be like, "7777-7777-7777-7777"
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <label for="inputAddress" class="form-label">
+                    Address
+                  </label>
+                  <input
+                    placeholder="1234 Main St"
+                    type="text"
+                    className={`form-control ${
+                      validationErrors.address ? "is-invalid" : ""
+                    }`}
+                    id="inputAddress"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">Address is required</div>
+                </div>
+
+                <div class="col-md-12">
+                  <label for="inputAddress2" class="form-label">
+                    Address 2
+                  </label>
+                  <input
+                    placeholder="Apartment, studio, or floor"
+                    type="text"
+                    className={`form-control`}
+                    id="inputAddress2"
+                    name="address2"
+                    value={formData.address2}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="inputCity" class="form-label">
+                    City
+                  </label>
+                  <input
+                    type="text"
+                    className={`form-control ${
+                      validationErrors.city ? "is-invalid" : ""
+                    }`}
+                    id="inputCity"
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">City is required</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="inputState" class="form-label">
+                    State
+                  </label>
+                  <input
+                    type="text"
+                    className={`form-control ${
+                      validationErrors.state ? "is-invalid" : ""
+                    }`}
+                    id="inputState"
+                    name="state"
+                    value={formData.state}
+                    onChange={handleChange}
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">State is required</div>
+                </div>
+
+				<div class="col-md-6">
+	<label for="inputZip" class="form-label">
+	  Zip Code
+	</label>
+	<input
+	  type="text"
+	  className={`form-control ${
+		validationErrors.zip ? "is-invalid" : ""
+	  }`}
+	  id="inputZip"
+	  name="zip"
+	  value={formData.zip}
+	  onChange={handleChange}
+	/>
+	<div class="valid-feedback">Looks good!</div>
+	<div class="invalid-feedback">Zip code is required</div>
+  </div>
+
+                <button type="submit" className="btn btn-success text-dark">
+                  Order
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // CONFIRMATION CODE ################
 
@@ -176,14 +407,14 @@ const App = () => {
   return (
     <div>
       <div className="top-0 p-4 flex justify-between items-center">
-        <h1 className="text-2xl">
+        <h1 className="text-3xl">
           <strong>IASG Online Store</strong>{" "}
         </h1>
         <button
           className="btn btn-md btn-primary"
           onClick={() => toggleViews()}
         >
-          {isBrowseViewVisible ? "Checkout" : "Browse"}
+          {isBrowseViewVisible ? "Checkout" : "Return"}
         </button>
       </div>
       <div
@@ -195,6 +426,7 @@ const App = () => {
             <div>
               <div className="py-10">
                 <input
+                  id="search"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700
 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
@@ -239,6 +471,9 @@ dark:focus:ring-blue-500 dark:focus:border-blue-500"
               </div>
             </div>
           </div>
+        </div>
+        <div>
+          <CheckoutForm />
         </div>
       </div>
       <div className="confirmationView"></div>
