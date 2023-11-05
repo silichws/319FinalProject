@@ -1,6 +1,5 @@
 import "./App.css";
-// import logo from "./logo.png";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Products } from "./Products";
 
 const App = () => {
@@ -148,7 +147,6 @@ const App = () => {
       const form = document.getElementById("checkout-form");
       const summaryCard = document.getElementById("confirmation-info");
 
-      // Validate the form data
       const errors = {};
       if (!formData.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
         errors.email = "Invalid email address";
@@ -166,7 +164,7 @@ const App = () => {
         errors.state = "State is required";
       }
       if (isNaN(formData.zip) || formData.zip.length !== 5) {
-        errors.zip = "Zip code is required";
+        errors.zip = "Valid zip code is required";
       }
       if (!formData.card.match(/^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/)) {
         errors.card = "Invalid card format";
@@ -175,7 +173,6 @@ const App = () => {
 		console.log("formData");
 		console.log(formData);
 		setformDataConfirm(formData);
-
 
         form.classList.add("collapse");
         setViewConfirmation(true);
@@ -356,7 +353,7 @@ const App = () => {
                     onChange={handleChange}
                   />
                   <div className="valid-feedback">Looks good!</div>
-                  <div className="invalid-feedback">Zip code is required</div>
+                  <div className="invalid-feedback">Valid zip code is required</div>
                 </div>
 
                 <button type="submit" className="btn btn-success text-dark">
