@@ -16,10 +16,15 @@ code {
     monospace;
 }
 
-/* .browseView
-{
-  display: none;
-} */
+
 body {
   overflow: visible;
+}
+#confirmation{
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#formInfo{
+  margin-top: 10px;
 }

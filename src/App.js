@@ -12,6 +12,11 @@ const App = () => {
     setIsBrowseViewVisible(!isBrowseViewVisible);
     setIsCartViewVisible(!isCartViewVisible);
 
+    if (ViewConfirmation) {
+      window.location.reload();
+      setViewConfirmation(false);
+    }
+
     const searchInput = document.getElementById("search");
     console.log(searchInput.value);
     searchInput.value = "";
@@ -22,6 +27,7 @@ const App = () => {
 
   const [isBrowseViewVisible, setIsBrowseViewVisible] = useState(true);
   const [isCartViewVisible, setIsCartViewVisible] = useState(false);
+  const [ViewConfirmation, setViewConfirmation] = useState(false);
 
   // BROWSE CODE ################
 
@@ -106,6 +112,16 @@ const App = () => {
 
     return total;
   };
+  const [formDataConfirm, setformDataConfirm] = useState({
+	name: "",
+	email: "",
+	card: "",
+	address: "",
+	address2: "",
+	city: "",
+	state: "",
+	zip: "",
+  });
 
   // VALIDATION ##################
   function CheckoutForm() {
@@ -129,6 +145,8 @@ const App = () => {
     };
     const handleSubmit = (e) => {
       e.preventDefault();
+      const form = document.getElementById("checkout-form");
+      const summaryCard = document.getElementById("confirmation-info");
 
       // Validate the form data
       const errors = {};
@@ -138,23 +156,31 @@ const App = () => {
       if (formData.name.trim() === "") {
         errors.name = "Name is required";
       }
-	  if (formData.address.trim() === "") {
+      if (formData.address.trim() === "") {
         errors.address = "Address is required";
       }
-	  if (formData.city.trim() === "") {
+      if (formData.city.trim() === "") {
         errors.city = "City is required";
       }
-	  if (formData.state.trim() === "") {
+      if (formData.state.trim() === "") {
         errors.state = "State is required";
       }
-	  if (isNaN(formData.zip) || formData.zip.length !== 5) {
+      if (isNaN(formData.zip) || formData.zip.length !== 5) {
         errors.zip = "Zip code is required";
       }
       if (!formData.card.match(/^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/)) {
         errors.card = "Invalid card format";
       }
       if (Object.keys(errors).length === 0) {
-        alert("Form is valid and can be submitted.");
+		console.log("formData");
+		console.log(formData);
+		setformDataConfirm(formData);
+
+
+        form.classList.add("collapse");
+        setViewConfirmation(true);
+        summaryCard.classList.remove("collapse");
+		
       } else {
         setValidationErrors(errors);
       }
@@ -162,21 +188,27 @@ const App = () => {
 
     return (
       <div>
-        <div class="container">
-          <div class="row">
-            <div class="col-2"></div>
+        <div
+          className="container"
+		  id="formInfo"
+        >
+          <div className="row">
+            <div className="col-2"></div>
 
-            <div class="col-8">
-              <h1 className="text-3xl category-title">Payment Information</h1>
+            <div className="col-8">
+              <h1 className="text-3xl category-title">
+                {ViewConfirmation ? "" : "Payment Information"}
+              </h1>
 
               <div id="liveAlertPlaceholder"></div>
               <form
                 className="row g-3"
                 id="checkout-form"
                 onSubmit={handleSubmit}
+				style={{ display: ViewConfirmation ? "none" : "float" }}
               >
-                <div class="col-md-6">
-                  <label for="inputName" class="form-label">
+                <div className="col-md-6">
+                  <label for="inputName" className="form-label">
                     Full Name
                   </label>
                   <input
@@ -189,12 +221,12 @@ const App = () => {
                     value={formData.name}
                     onChange={handleChange}
                   />
-                  <div class="valid-feedback">Looks good!</div>
-                  <div class="invalid-feedback">Must be like, "John Doe"</div>
+                  <div className="valid-feedback">Looks good!</div>
+                  <div className="invalid-feedback">Must be like, "John Doe"</div>
                 </div>
 
-                <div class="col-md-6">
-                  <label for="inputEmail" class="form-label">
+                <div className="col-md-6">
+                  <label for="inputEmail" className="form-label">
                     Email
                   </label>
                   <input
@@ -207,19 +239,19 @@ const App = () => {
                     value={formData.email}
                     onChange={handleChange}
                   />
-                  <div class="valid-feedback">Looks good!</div>
-                  <div class="invalid-feedback">
+                  <div className="valid-feedback">Looks good!</div>
+                  <div className="invalid-feedback">
                     Must be like, "abc@xyz.efg"
                   </div>
                 </div>
 
-                <div class="col-md-12">
-                  <label for="inputCard" class="form-label">
+                <div className="col-md-12">
+                  <label for="inputCard" className="form-label">
                     Card Number
                   </label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">
-                      <i class="bi-credit-card-fill"></i>
+                  <div className="input-group mb-3">
+                    <span className="input-group-text" id="basic-addon1">
+                      <i className="bi-credit-card-fill"></i>
                     </span>
                     <input
                       placeholder="XXXX-XXXX-XXXX-XXXX"
@@ -232,15 +264,15 @@ const App = () => {
                       value={formData.card}
                       onChange={handleChange}
                     />
-                    <div class="valid-feedback">Looks good!</div>
-                    <div class="invalid-feedback">
+                    <div className="valid-feedback">Looks good!</div>
+                    <div className="invalid-feedback">
                       Must be like, "7777-7777-7777-7777"
                     </div>
                   </div>
                 </div>
 
-                <div class="col-md-12">
-                  <label for="inputAddress" class="form-label">
+                <div className="col-md-12">
+                  <label for="inputAddress" className="form-label">
                     Address
                   </label>
                   <input
@@ -254,12 +286,12 @@ const App = () => {
                     value={formData.address}
                     onChange={handleChange}
                   />
-                  <div class="valid-feedback">Looks good!</div>
-                  <div class="invalid-feedback">Address is required</div>
+                  <div className="valid-feedback">Looks good!</div>
+                  <div className="invalid-feedback">Address is required</div>
                 </div>
 
-                <div class="col-md-12">
-                  <label for="inputAddress2" class="form-label">
+                <div className="col-md-12">
+                  <label for="inputAddress2" className="form-label">
                     Address 2
                   </label>
                   <input
@@ -273,8 +305,8 @@ const App = () => {
                   />
                 </div>
 
-                <div class="col-md-6">
-                  <label for="inputCity" class="form-label">
+                <div className="col-md-6">
+                  <label for="inputCity" className="form-label">
                     City
                   </label>
                   <input
@@ -287,12 +319,12 @@ const App = () => {
                     value={formData.city}
                     onChange={handleChange}
                   />
-                  <div class="valid-feedback">Looks good!</div>
-                  <div class="invalid-feedback">City is required</div>
+                  <div className="valid-feedback">Looks good!</div>
+                  <div className="invalid-feedback">City is required</div>
                 </div>
 
-                <div class="col-md-6">
-                  <label for="inputState" class="form-label">
+                <div className="col-md-6">
+                  <label for="inputState" className="form-label">
                     State
                   </label>
                   <input
@@ -305,32 +337,68 @@ const App = () => {
                     value={formData.state}
                     onChange={handleChange}
                   />
-                  <div class="valid-feedback">Looks good!</div>
-                  <div class="invalid-feedback">State is required</div>
+                  <div className="valid-feedback">Looks good!</div>
+                  <div className="invalid-feedback">State is required</div>
                 </div>
 
-				<div class="col-md-6">
-	<label for="inputZip" class="form-label">
-	  Zip Code
-	</label>
-	<input
-	  type="text"
-	  className={`form-control ${
-		validationErrors.zip ? "is-invalid" : ""
-	  }`}
-	  id="inputZip"
-	  name="zip"
-	  value={formData.zip}
-	  onChange={handleChange}
-	/>
-	<div class="valid-feedback">Looks good!</div>
-	<div class="invalid-feedback">Zip code is required</div>
-  </div>
+                <div className="col-md-6">
+                  <label for="inputZip" className="form-label">
+                    Zip Code
+                  </label>
+                  <input
+                    type="text"
+                    className={`form-control ${
+                      validationErrors.zip ? "is-invalid" : ""
+                    }`}
+                    id="inputZip"
+                    name="zip"
+                    value={formData.zip}
+                    onChange={handleChange}
+                  />
+                  <div className="valid-feedback">Looks good!</div>
+                  <div className="invalid-feedback">Zip code is required</div>
+                </div>
 
                 <button type="submit" className="btn btn-success text-dark">
                   Order
                 </button>
               </form>
+              <div
+                className="confirmationView"
+                style={{ display: ViewConfirmation ? "block" : "none" }}
+              >
+                <div className="card" id="confirmation-info">
+                  <div className="card-body">
+                    <h5 className="card-title">Personal Information</h5>
+                  </div>
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item">	
+                      <b> Name: </b> {formDataConfirm.name}
+                    </li>
+                    <li className="list-group-item">
+                      <b> Email: </b> {formDataConfirm.email}
+                    </li>
+					<li className="list-group-item">
+                      <b> Card ending in: </b> {formDataConfirm.card.substring(formDataConfirm.card.length - 4)}
+                    </li>
+					<li className="list-group-item">
+                      <b> Address: </b> {formDataConfirm.address}
+                    </li>
+					<li className="list-group-item">
+                      <b> Address 2: </b> {formDataConfirm.address2}
+                    </li>
+					<li className="list-group-item">
+                      <b> City: </b> {formDataConfirm.city}
+                    </li>
+					<li className="list-group-item">
+                      <b> State: </b> {formDataConfirm.state}
+                    </li>
+					<li className="list-group-item">
+                      <b> Zip: </b> {formDataConfirm.zip}
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -362,7 +430,7 @@ const App = () => {
                       {product.title}
                     </span>
                     <p className="card-text">
-                      {product.price} <br></br>
+                      ${product.price} <br></br>
                       <strong>Description: </strong>
                       {product.description}
                       <br></br>
@@ -416,6 +484,9 @@ const App = () => {
           {isBrowseViewVisible ? "Checkout" : "Return"}
         </button>
       </div>
+      <h2 className="text-3xl" id="confirmation">
+        {ViewConfirmation ? "Payment Confirmed" : ""}
+      </h2>
       <div
         className="browseView"
         style={{ display: isBrowseViewVisible ? "block" : "none" }}
@@ -453,7 +524,9 @@ dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   <div className="row">
                     <div className="col">
                       <h4>
-                        <b>Your Cart</b>
+                        <b>
+                          {ViewConfirmation ? "Summary of items" : "Your Cart"}
+                        </b>
                       </h4>
                     </div>
                   </div>
@@ -475,7 +548,6 @@ dark:focus:ring-blue-500 dark:focus:border-blue-500"
           <CheckoutForm />
         </div>
       </div>
-      <div className="confirmationView"></div>
     </div>
   );
 };
