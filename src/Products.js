@@ -22,7 +22,7 @@ export const Products = [
       "quantity": 0,
       "title": "Proxmark",
       "price": 80,
-      "description": "A device for all your RFID reading needs. After downloading and running a open source software package, you can read both high and low frequency RFID cards. It can also write to cards that are set as writtable.great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.",
+      "description": "A device for all your RFID reading needs. After downloading and running a open source software package, you can read both high and low frequency RFID cards. It can also write to cards that are set as writtable.",
       "category": "hacking tools",
       "image": "./images/proxmark.png"
     },
