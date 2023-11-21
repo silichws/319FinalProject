@@ -17,17 +17,18 @@ const url = "mongodb://127.0.0.1:27017";
 const dbName = "reactdata";
 const client = new MongoClient(url);
 const db = client.db(dbName);
+const collection = "piData";
 
-app.get("/listRobots", async (req, res) => {
+app.get("/list", async (req, res) => {
   await client.connect();
   console.log("Node connected successfully to GET MongoDB");
   const query = {};
   const results = await db
-    .collection("robots")
+    .collection(collection)
     .find(query)
     .limit(100)
     .toArray();
-  console.log(results);
+  // console.log(results);
   res.status(200);
   res.send(results);
 });
