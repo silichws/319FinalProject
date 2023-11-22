@@ -26,7 +26,7 @@ app.get("/list", async (req, res) => {
   const results = await db
     .collection(collection)
     .find(query)
-    .limit(20)
+    .limit(24)
     .toArray();
   // console.log(results);
   res.status(200);
