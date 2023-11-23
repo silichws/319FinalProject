@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Form = () => {
+const EditForm = () => {
   const [formData, setFormData] = useState({
     time: "",
     temp: "",
@@ -110,12 +110,12 @@ const Form = () => {
           <div className="invalid-feedback">Timestamp is required</div>
         </div>
 
-        <button type="submit" className="btn btn-success text-dark">
-          Add
+        <button type="submit" className="btn btn-primary text-dark">
+          Edit
         </button>
       </form>
     </div>
   );
 };
 
-export default Form;
+export default EditForm;

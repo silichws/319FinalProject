@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Form = () => {
+const DeleteForm = () => {
   const [formData, setFormData] = useState({
     time: "",
     temp: "",
@@ -20,12 +20,6 @@ const Form = () => {
     const errors = {};
     if (formData.time.trim() === "") {
       errors.time = "Timestamp is required";
-    }
-    if (formData.temp.trim() === "") {
-      errors.temp = "Temperature is required";
-    }
-    if (formData.hum.trim() === "") {
-      errors.hum = "Humidity is required";
     }
 
     if (Object.keys(errors).length === 0) {
@@ -72,50 +66,16 @@ const Form = () => {
             name="time"
             value={formData.time}
             onChange={handleChange}
-			placeholder="YYYY-MM-DD-HH.MM.SS"
-          />
-          <div className="valid-feedback">Looks good!</div>
-          <div className="invalid-feedback">Timestamp is required</div>
-
-          <label htmlFor="inputTemp" className="form-label">
-            Temperature
-          </label>
-          <input
-            type="text"
-            className={`form-control ${
-              validationErrors.temp ? "is-invalid" : ""
-            }`}
-            id="inputTemp"
-            name="temp"
-            value={formData.temp}
-            onChange={handleChange}
-          />
-          <div className="valid-feedback">Looks good!</div>
-          <div className="invalid-feedback">Temperature is required</div>
-
-          <label htmlFor="inputTime" className="form-label">
-            Humidity
-          </label>
-          <input
-            type="text"
-            className={`form-control ${
-              validationErrors.time ? "is-invalid" : ""
-            }`}
-            id="inputTime"
-            name="hum"
-            value={formData.hum}
-            onChange={handleChange}
           />
           <div className="valid-feedback">Looks good!</div>
           <div className="invalid-feedback">Timestamp is required</div>
         </div>
-
-        <button type="submit" className="btn btn-success text-dark">
-          Add
+        <button type="submit" className="btn btn-danger text-dark">
+          Delete
         </button>
       </form>
     </div>
   );
 };
 
-export default Form;
+export default DeleteForm;

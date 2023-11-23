@@ -3,6 +3,8 @@ import "./info.css";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import Form from "./Form";
+import DeleteForm from "./DeleteForm";
+import EditForm from "./EditForm";
 Chart.register(...registerables);
 
 const Info = () => {
@@ -30,15 +32,15 @@ const Info = () => {
     console.log(data.length);
     for (var i = 0; i < data.length; i++) {
       let timestamp = data[i].id;
-	  let temp = data[i].temp;
-	  let humid = data[i].humidity;
-	//   console.log("setting");
-	//   console.log(timestamp);
+      let temp = data[i].temp;
+      let humid = data[i].humidity;
+      //   console.log("setting");
+      //   console.log(timestamp);
 
       labels.push(timestamp);
-	  temperatures.push(temp);
-	  humidity.push(humid);
-	//   console.log(labels);
+      temperatures.push(temp);
+      humidity.push(humid);
+      //   console.log(labels);
       //   let price = data[i].price;
       //   let description = data[i].description;
       //   let imageUrl = data[i].imageUrl;
@@ -91,7 +93,11 @@ const Info = () => {
 
       <Line data={data} options={options} />
 
-	  <Form />
+      <div>
+        <Form />
+        <DeleteForm />
+		<EditForm />
+      </div>
 
       {/* <div id="showData"></div> */}
     </div>
