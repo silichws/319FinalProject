@@ -46,18 +46,14 @@ const DeleteForm = () => {
     }
   };
   return (
-    <div>
-      <hr></hr>
-      <form
-        className="row g-3 col-md-3"
-        id="checkout-form"
-        onSubmit={handleSubmit}
-      >
+    <div className="g-3 col-md-3 formBorder">
+      <form className="row " id="checkout-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="inputTime" className="form-label">
             Timestamp
           </label>
           <input
+            placeholder="YYYY-MM-DD-HH.MM.SS"
             type="text"
             className={`form-control ${
               validationErrors.time ? "is-invalid" : ""
@@ -70,7 +66,7 @@ const DeleteForm = () => {
           <div className="valid-feedback">Looks good!</div>
           <div className="invalid-feedback">Timestamp is required</div>
         </div>
-        <button type="submit" className="btn btn-danger text-dark">
+        <button type="submit" className="btn btn-danger text-dark makeApiCall">
           Delete
         </button>
       </form>

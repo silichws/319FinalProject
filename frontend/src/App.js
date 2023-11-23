@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import { Products } from "./Products";
 import Dashboard from "./Dashboard";
 import Info from "./Info";
 import About from "./About";

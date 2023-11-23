@@ -5,3 +5,17 @@
 #topThing {
 	text-align: center;
 }
+
+.apiCalls{
+	display: flex;
+	justify-content: space-around;
+}
+
+.makeApiCall{
+	margin-top: 10px;
+}
+
+.formBorder{
+  border: 1px solid #ccc;
+  padding: 20px;
+}

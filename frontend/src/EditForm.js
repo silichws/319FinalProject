@@ -52,10 +52,9 @@ const EditForm = () => {
     }
   };
   return (
-    <div>
-      <hr></hr>
+    <div className="g-3 col-md-3 formBorder">
       <form
-        className="row g-3 col-md-3"
+        className="row"
         id="checkout-form"
         onSubmit={handleSubmit}
       >
@@ -110,7 +109,7 @@ const EditForm = () => {
           <div className="invalid-feedback">Timestamp is required</div>
         </div>
 
-        <button type="submit" className="btn btn-primary text-dark">
+        <button type="submit" className="btn btn-primary text-dark makeApiCall">
           Edit
         </button>
       </form>

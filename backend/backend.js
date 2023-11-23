@@ -27,9 +27,23 @@ app.get("/list", async (req, res) => {
     .collection(collection)
     .find(query)
     .sort({id : -1})
-    .limit(24)
+    .limit(48)
     .toArray();
   // console.log(results);
+  res.status(200);
+  res.send(results);
+});
+
+app.get("/most-recent", async (req, res) => {
+  await client.connect();
+  console.log("Node connected successfully to GET MongoDB");
+  const query = {};
+  const results = await db
+    .collection(collection)
+    .find(query)
+    .sort({id : -1})
+    .limit(1)
+    .toArray();
   res.status(200);
   res.send(results);
 });

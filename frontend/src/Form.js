@@ -52,10 +52,9 @@ const Form = () => {
     }
   };
   return (
-    <div>
-      <hr></hr>
+    <div className="g-3 col-md-3 formBorder">
       <form
-        className="row g-3 col-md-3"
+        className="row"
         id="checkout-form"
         onSubmit={handleSubmit}
       >
@@ -110,7 +109,7 @@ const Form = () => {
           <div className="invalid-feedback">Timestamp is required</div>
         </div>
 
-        <button type="submit" className="btn btn-success text-dark">
+        <button type="submit" className="btn btn-success text-dark makeApiCall">
           Add
         </button>
       </form>

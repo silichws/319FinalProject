@@ -94,9 +94,13 @@ const Info = () => {
       <Line data={data} options={options} />
 
       <div>
-        <Form />
+		<hr></hr>
+		<div className="apiCalls">
+		<Form />
         <DeleteForm />
 		<EditForm />
+		</div>
+        
       </div>
 
       {/* <div id="showData"></div> */}
