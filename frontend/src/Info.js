@@ -89,7 +89,7 @@ const Info = () => {
 
   return (
     <div>
-      <h1>Info</h1>
+      <h1 id="topThing">Data Management</h1>
 
       <Line data={data} options={options} />
 
