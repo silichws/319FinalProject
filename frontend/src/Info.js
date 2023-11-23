@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./info.css";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
+import Form from "./Form";
 Chart.register(...registerables);
 
 const Info = () => {
@@ -54,11 +55,11 @@ const Info = () => {
   }
 
   const data = {
-    labels: labels,
+    labels: labels.reverse(),
     datasets: [
       {
         label: "Temperature °F",
-        data: temperatures,
+        data: temperatures.reverse(),
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
@@ -66,7 +67,7 @@ const Info = () => {
       },
       {
         label: "Humidity %",
-        data: humidity,
+        data: humidity.reverse(),
         backgroundColor: "rgba(54, 162, 235, 0.2)",
         borderColor: "rgba(54, 162, 235, 1)",
         borderWidth: 1,
@@ -89,6 +90,8 @@ const Info = () => {
       <h1>Info</h1>
 
       <Line data={data} options={options} />
+
+	  <Form />
 
       {/* <div id="showData"></div> */}
     </div>
