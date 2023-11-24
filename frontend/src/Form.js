@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Form = () => {
+const Form = ({reloadPage}) => {
   const [formData, setFormData] = useState({
     time: "",
     temp: "",
@@ -30,9 +30,9 @@ const Form = () => {
 
     if (Object.keys(errors).length === 0) {
       // Validation correct. Put API call here
-      console.log("formData");
-      console.log(formData);
-      console.log("attempting to post new robot");
+      //   console.log("formData");
+      //   console.log(formData);
+      console.log("attempting to post new data");
       await fetch("http://localhost:8081/add", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -46,18 +46,19 @@ const Form = () => {
         .then((data) => {
           console.log(data);
         });
-      //   setformDataConfirm(formData);
+		setFormData({
+        time: "Added",
+        temp: "",
+        hum: "",
+      });
+	  reloadPage();
     } else {
       setValidationErrors(errors);
     }
   };
   return (
     <div className="g-3 col-md-3 formBorder">
-      <form
-        className="row"
-        id="checkout-form"
-        onSubmit={handleSubmit}
-      >
+      <form className="row" id="checkout-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="inputTime" className="form-label">
             Timestamp
@@ -71,7 +72,7 @@ const Form = () => {
             name="time"
             value={formData.time}
             onChange={handleChange}
-			placeholder="YYYY-MM-DD-HH.MM.SS"
+            placeholder="YYYY-MM-DD-HH.MM.SS"
           />
           <div className="valid-feedback">Looks good!</div>
           <div className="invalid-feedback">Timestamp is required</div>
@@ -106,7 +107,7 @@ const Form = () => {
             onChange={handleChange}
           />
           <div className="valid-feedback">Looks good!</div>
-          <div className="invalid-feedback">Timestamp is required</div>
+          <div className="invalid-feedback">Humidity is required</div>
         </div>
 
         <button type="submit" className="btn btn-success text-dark makeApiCall">

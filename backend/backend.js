@@ -72,6 +72,12 @@ app.put("/update", async (req, res) => {
   console.log("updating");
   await client.connect();
   let query =  {id: req.body["id"]};
+  if (!query)
+  {
+    res.status(500);
+    res.send("Not found");
+    return;
+  }
   const results_delete = await db.collection(collection).deleteOne(query);
 
   console.log(results_delete);

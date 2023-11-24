@@ -46,18 +46,18 @@ const EditForm = () => {
         .then((data) => {
           console.log(data);
         });
-      //   setformDataConfirm(formData);
+      setFormData({
+        time: "Updated",
+        temp: "",
+        hum: "",
+      });
     } else {
       setValidationErrors(errors);
     }
   };
   return (
     <div className="g-3 col-md-3 formBorder">
-      <form
-        className="row"
-        id="checkout-form"
-        onSubmit={handleSubmit}
-      >
+      <form className="row" id="checkout-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="inputTime" className="form-label">
             Timestamp
@@ -71,7 +71,7 @@ const EditForm = () => {
             name="time"
             value={formData.time}
             onChange={handleChange}
-			placeholder="YYYY-MM-DD-HH.MM.SS"
+            placeholder="YYYY-MM-DD-HH.MM.SS"
           />
           <div className="valid-feedback">Looks good!</div>
           <div className="invalid-feedback">Timestamp is required</div>
@@ -106,7 +106,7 @@ const EditForm = () => {
             onChange={handleChange}
           />
           <div className="valid-feedback">Looks good!</div>
-          <div className="invalid-feedback">Timestamp is required</div>
+          <div className="invalid-feedback">Humidity is required</div>
         </div>
 
         <button type="submit" className="btn btn-primary text-dark makeApiCall">

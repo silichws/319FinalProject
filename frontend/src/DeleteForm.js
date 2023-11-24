@@ -3,8 +3,6 @@ import React, { useState } from "react";
 const DeleteForm = () => {
   const [formData, setFormData] = useState({
     time: "",
-    temp: "",
-    hum: "",
   });
 
   const [validationErrors, setValidationErrors] = useState({});
@@ -27,20 +25,23 @@ const DeleteForm = () => {
       console.log("formData");
       console.log(formData);
       console.log("attempting to post new robot");
-      await fetch("http://localhost:8081/add", {
-        method: "POST",
+      fetch("http://localhost:8081/delete", {
+        method: "DELETE",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           id: formData.time,
-          temp: formData.temp,
-          humidity: formData.hum,
         }),
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
-        });
-      //   setformDataConfirm(formData);
+          setFormData({
+            time: "Deleted",
+          });
+        })
+        .catch((err) => {console.log("Errror:" + err);
+        setFormData({
+          time: "Error: Could not find time entered",
+        });});
     } else {
       setValidationErrors(errors);
     }
