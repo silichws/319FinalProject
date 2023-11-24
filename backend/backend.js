@@ -48,20 +48,34 @@ app.get("/most-recent", async (req, res) => {
   res.send(results);
 });
 
-app.get("/:id", async (req, res) => {
-  const id = req.params.id;
-  console.log("Temp :", id);
-  await client.connect();
-  console.log("Node connected successfully to GET-id MongoDB");
-  const query = { id: id };
-  const results = await db.collection(collection).findOne(query);
-  console.log("Results :", results);
-  if (!results) res.send("Not Found in database").status(404);
-  else res.send(results).status(200);
-});
-
 app.post("/add", async (req, res) => {
   await client.connect();
+  var key = Object.keys(req.body);
+  var values = Object.values(req.body);
+  console.log(values);
+
+  const id = values[0];
+  const temp = values[1];
+  const humidity = values[2];
+
+  const newDoc = {
+    id: id,
+    temp: temp,
+    humidity: humidity,
+  };
+  const results = await db.collection(collection).insertOne(newDoc);
+  res.status(200);
+  res.send(results);
+});
+
+app.put("/update", async (req, res) => {
+  console.log("updating");
+  await client.connect();
+  let query =  {id: req.body["id"]};
+  const results_delete = await db.collection(collection).deleteOne(query);
+
+  console.log(results_delete);
+
   var key = Object.keys(req.body);
   var values = Object.values(req.body);
   console.log(values);
@@ -83,10 +97,8 @@ app.post("/add", async (req, res) => {
 
 app.delete("/delete", async (req, res) => {
   await client.connect();
-
   console.log(req.body["id"]);
-  var values = Object.values(req.body["id"]);
-  let query =  {id: new ObjectId(values)};
+  let query =  {id: req.body["id"]};
   const results = await db.collection(collection).deleteOne(query);
   // let results = "none";
   res.status(200);
