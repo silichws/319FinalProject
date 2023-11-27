@@ -26,7 +26,7 @@ app.get("/list", async (req, res) => {
   const results = await db
     .collection(collection)
     .find(query)
-    .sort({id : -1})
+    .sort({ id: -1 })
     .limit(48)
     .toArray();
   // console.log(results);
@@ -41,7 +41,7 @@ app.get("/most-recent", async (req, res) => {
   const results = await db
     .collection(collection)
     .find(query)
-    .sort({id : -1})
+    .sort({ id: -1 })
     .limit(1)
     .toArray();
   res.status(200);
@@ -71,9 +71,8 @@ app.post("/add", async (req, res) => {
 app.put("/update", async (req, res) => {
   console.log("updating");
   await client.connect();
-  let query =  {id: req.body["id"]};
-  if (!query)
-  {
+  let query = { id: req.body["id"] };
+  if (!query) {
     res.status(500);
     res.send("Not found");
     return;
@@ -100,13 +99,20 @@ app.put("/update", async (req, res) => {
   res.send(results);
 });
 
-
 app.delete("/delete", async (req, res) => {
   await client.connect();
   console.log(req.body["id"]);
-  let query =  {id: req.body["id"]};
+  let query = { id: req.body["id"] };
   const results = await db.collection(collection).deleteOne(query);
   // let results = "none";
   res.status(200);
   res.send(results);
+});
+
+//############ PLANT REQUESTS #############
+
+app.get("/getPlants", (req, res) => {
+  var plants = require("./plants")
+  res.status(200)
+  res.send(plants)
 });
