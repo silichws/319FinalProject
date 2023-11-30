@@ -47,28 +47,33 @@ const App = () => {
       <div className="buttons">
       <button
           className="btn btn-md btn-primary"
+          id="navbtn"
           onClick={() => showDash()}
         >
           Dashboard
         </button>
         <button
           className="btn btn-md btn-primary"
+          id="navbtn"
           onClick={() => showInfo()}
         >
           Show Information
         </button>
         <button
           className="btn btn-md btn-primary"
+          id="navbtn"
           onClick={() => showIsAbout()}
         >
           About Us
         </button>
         <button
           className="btn btn-md btn-primary"
+          id="navbtn"
           onClick={() => showPlants()}
         >
           Plants
         </button>
+        <hr></hr>
       </div>
       <div className="dashboard" style={{ display: isDashboard ? "block" : "none" }}>
         <Dashboard />

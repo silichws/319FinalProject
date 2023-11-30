@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { elements } from "chart.js";
 
 const Plants = () => {
   const [plants, setPlants] = useState([]);
+
+  const [newPlantform, setNewPlantForm] = useState({
+    name: "",
+    tempRange: "",
+    humRange: "",
+    age: "",
+  });
 
   useEffect(() => {
     fetch("http://localhost:8081/getPlants")
@@ -31,7 +37,9 @@ const Plants = () => {
     <div key={plant.name}>
       <div class="col" id="left-plant">
         <div id="card1" class="card collapse show shadow-sm">
-          <div id="imgPlant1"><img src={plant.src} class="card-img-top" alt="..."></img></div>
+          <div id="imgPlant1">
+            <img src={plant.src} class="card-img-top" alt="..."></img>
+          </div>
           <div class="card-body">
             <p id="txtPlant1" class="card-text">
               <p class="card-text">
@@ -59,18 +67,21 @@ const Plants = () => {
       </div>
       <h2>Add Plant</h2>
       <form>
-          <label>Name</label> <br></br>
-          <input></input>
-          <br></br>
-          <label>Temprature Range:</label> <br></br>
-          <input></input> <br></br>
-          <label>Humidity Range: </label> <br></br>
-          <input></input><br></br>
-          <label>Age</label><br></br>
-          <input></input><br></br>
-          <button className="btn btn-md btn-primary">
-            Add Plant
-          </button>
+        <label>Name</label> <br></br>
+        <input></input>
+        <br></br>
+        <label>Temprature Range:</label> <br></br>
+        <input></input> <br></br>
+        <label>Humidity Range: </label> <br></br>
+        <input></input>
+        <br></br>
+        <label>Age</label>
+        <br></br>
+        <input></input>
+        <br></br>
+        <button type="submit" className="btn btn-md btn-primary">
+          Add Plant
+        </button>
       </form>
     </div>
   );

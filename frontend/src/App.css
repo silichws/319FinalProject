@@ -17,3 +17,12 @@
   padding: 20px;
   display: inline-block;
 }
+
+#navbtn {
+  margin-right: 1rem;
+  margin-left:1rem;
+  background-color: white;
+  border:white;
+  color: black;
+  margin-bottom:1rem;
+}
