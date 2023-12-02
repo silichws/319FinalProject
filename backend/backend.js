@@ -116,3 +116,25 @@ app.get("/getPlants", (req, res) => {
   res.status(200)
   res.send(plants)
 });
+
+app.post("/addPlant", (req, res) => {
+  var plants = require("./plants")
+  const data = fs.readFileSync('./plants.json')
+  const jsonData = JSON.parse(data);
+  var newPlant = req.body
+  // jsonData.plants.push({
+  //   name: newPlant.name,
+  //   age: newPlant.age,
+  //   tempRange: newPlant.tempRange,
+  //   humRange: newPlant.humRange,
+  //   src: newPlant.src
+  // })
+  jsonData.plants.push(newPlant);
+  const jsonString = JSON.stringify(jsonData);
+  fs.writeFileSync("plants.json", jsonString, 'utf-8', (err) => {
+    if (err) throw err;
+    console.log('Data added to file');
+    res.status(200);
+    res.send("data added")
+  });
+})

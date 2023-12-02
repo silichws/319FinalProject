@@ -9,7 +9,10 @@ const Plants = () => {
     tempRange: "",
     humRange: "",
     age: "",
+    src: "",
   });
+
+  const [formValidationErrors, setFormValidationErrors] = useState({});
 
   useEffect(() => {
     fetch("http://localhost:8081/getPlants")
@@ -33,23 +36,73 @@ const Plants = () => {
     console.log(plants);
   }
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewPlantForm({ ...newPlantform, [name]: value });
+    setFormValidationErrors({ ...formValidationErrors, [name]: "" });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const errors = {};
+    if (newPlantform.name.trim() === "") {
+      errors.name = "name is required";
+    }
+    if (newPlantform.tempRange.trim() === "") {
+      errors.tempRange = "Temperature is required";
+    }
+    if (newPlantform.humRange.trim() === "") {
+      errors.humRange = "Humidity is required";
+    }
+
+    if (Object.keys(errors).length === 0) {
+      // Validation correct. Put API call here
+      console.log("new plant");
+      console.log(newPlantform);
+      console.log("attempting to post new plant");
+      await fetch("http://localhost:8081/addPlant", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          name: newPlantform.name,
+          tempRange: newPlantform.tempRange,
+          humRange: newPlantform.humRange,
+          age: newPlantform.age,
+          src: "./images/widow.jpeg"
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        });
+      setNewPlantForm({
+        name: "Updated",
+        tempRange: "",
+        humRange: "",
+        age: "",
+        src: "",
+      });
+    } else {
+      setFormValidationErrors(errors);
+    }
+  };
+
   var renderedOutput = plants.map((plant) => (
     <div key={plant.name}>
-      <div class="col" id="left-plant">
-        <div id="card1" class="card collapse show shadow-sm">
+      <div className="col" id="left-plant">
+        <div id="card1" className="card collapse show shadow-sm">
           <div id="imgPlant1">
-            <img src={plant.src} class="card-img-top" alt="..."></img>
+            <img src={plant.src} className="card-img-top" alt="..."></img>
           </div>
-          <div class="card-body">
-            <p id="txtPlant1" class="card-text">
-              <p class="card-text">
-                <p className="card-text">
+          <div className="card-body">
+            <p id="txtPlant1" className="card-text">
+              
                   {plant.name} <br></br>
                   Temprature Range: {plant.tempRange} <br></br>
                   Humidity Range: {plant.humRange} <br></br>
                   Age: {plant.age}
-                </p>
-              </p>
+              
             </p>
           </div>
         </div>
@@ -61,28 +114,59 @@ const Plants = () => {
     <div>
       <div>
         <h2 id="plantHeader">Meet our plants</h2>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
           {renderedOutput}
         </div>
       </div>
       <h2>Add Plant</h2>
-      <form>
-        <label>Name</label> <br></br>
-        <input></input>
-        <br></br>
-        <label>Temprature Range:</label> <br></br>
-        <input></input> <br></br>
-        <label>Humidity Range: </label> <br></br>
-        <input></input>
-        <br></br>
-        <label>Age</label>
-        <br></br>
-        <input></input>
-        <br></br>
-        <button type="submit" className="btn btn-md btn-primary">
-          Add Plant
-        </button>
-      </form>
+      <div className="g-3 col-md-3 formBorder">
+        <form className="row" id="checkout-form" onSubmit={handleSubmit}>
+          <label>Name</label> <br></br>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={newPlantform.name}
+            onChange={handleChange}
+            className="form-label"
+          ></input>
+          <br></br>
+          <label>Temprature Range:</label> <br></br>
+          <input
+            type="text"
+            id="temp"
+            name="tempRange"
+            value={newPlantform.tempRange}
+            onChange={handleChange}
+            className="form-label"
+          ></input>
+          <br></br>
+          <label>Humidity Range: </label> <br></br>
+          <input
+            type="text"
+            id="hum"
+            name="humRange"
+            value={newPlantform.humRange}
+            onChange={handleChange}
+            className="form-label"
+          ></input>
+          <br></br>
+          <label>Age</label>
+          <br></br>
+          <input
+            type="text"
+            id="age"
+            name="age"
+            className="form-label"
+            value={newPlantform.age}
+            onChange={handleChange}
+          ></input>
+          <br></br>
+          <button type="submit" className="btn btn-md btn-primary">
+            Add Plant
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

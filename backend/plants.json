@@ -20,6 +20,13 @@
       "humRange": "40-60",
       "age": "2 years",
       "src": "./images/peace.jpeg"
+    },
+    {
+      "name": "testplant1",
+      "tempRange": "70-75",
+      "humRange": "40-60",
+      "age": "1 year",
+      "src": "./images/widow.jpeg"
     }
   ]
 }
