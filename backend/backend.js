@@ -112,23 +112,17 @@ app.delete("/delete", async (req, res) => {
 //############ PLANT REQUESTS #############
 
 app.get("/getPlants", (req, res) => {
-  var plants = require("./plants")
+  const path = 'plants.json'
+  var data = JSON.parse(fs.readFileSync(path))
   res.status(200)
-  res.send(plants)
+  res.send(data)
 });
 
 app.post("/addPlant", (req, res) => {
-  var plants = require("./plants")
   const data = fs.readFileSync('./plants.json')
   const jsonData = JSON.parse(data);
   var newPlant = req.body
-  // jsonData.plants.push({
-  //   name: newPlant.name,
-  //   age: newPlant.age,
-  //   tempRange: newPlant.tempRange,
-  //   humRange: newPlant.humRange,
-  //   src: newPlant.src
-  // })
+
   jsonData.plants.push(newPlant);
   const jsonString = JSON.stringify(jsonData);
   fs.writeFileSync("plants.json", jsonString, 'utf-8', (err) => {
