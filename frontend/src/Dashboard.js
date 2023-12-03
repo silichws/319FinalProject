@@ -24,7 +24,7 @@ const Dashboard = () => {
       })
       .catch((error) => {
         console.log("error: data not found");
-        setTimestamp("Data not found. Using hardcoded testing data");
+        setTimestamp("Error: Data not found. See README for setting up Mongo connection.");
         setTemperature(73);
         sethumidity(55);
       });

@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+# Setting up
+- This project is designed as a raspberry pi project. As such it needs to have data given to it.
+- As requested by Dr. Abraham Aldaco, example data and a pdf showing that data have been provided.
+- If you run into problems with setting up this data, feel free to reach out to us. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Importing data:
+- Import data from EXAMPLE_DATABASE.json to MONGO DB database named piData.
+- This is will in the necessary data for the website. 
+- An example of how it looks in Compass is attached as compass.pdf.
 
-In the project directory, you can run:
 
-### `npm start`
+## Adding data: 
+- Data is intended to be added using a raspberry pi. On my pi, I have a cron job that runs periodically, gathers the data,
+then makes an api call to the backend. (The database is running on the same machine as pi, since we do not have
+cloud access in this class.).
+- See additional setup for pi set up.
+- Data can also be added with the same `/add` api.
+- This is done through the form that exists on the website in the Information/Data management page.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Additional set up
+- To add the data on it's own, a cronjob will be needed to gather the data. 
+- Assuming your pi has a temperature reader set up, simply direct the cronjob to run however often you want to gather data to the cronjob.py file.
+- It will need the same installs as shown in the raspberry pi setup document.
+- The cronjob I am using is listed below.
+- This runs the job every 30 mintues at hour:05 and hour:35.
+- Make sure you set the path to where your file is located.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```cron
+5,35 * * * * cd /var/www/html && /usr/bin/python3 /var/www/html/helper/generateTemp.py &>/tmp/mycommand.log
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
