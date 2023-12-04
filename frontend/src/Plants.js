@@ -9,8 +9,9 @@ const Plants = () => {
     tempRange: "",
     humRange: "",
     age: "",
-    src: "http://127.0.0.1:8081/",
+    src: "",
   });
+  // src: http://127.0.0.1:8081/ for plant images in backend
 
   const [formValidationErrors, setFormValidationErrors] = useState({});
 
@@ -69,7 +70,7 @@ const Plants = () => {
           tempRange: newPlantform.tempRange,
           humRange: newPlantform.humRange,
           age: newPlantform.age,
-          src: "./images/widow.jpeg"
+          src: newPlantform.src,
         }),
       })
         .then((response) => response.json())
@@ -97,12 +98,10 @@ const Plants = () => {
           </div>
           <div className="card-body">
             <p id="txtPlant1" className="card-text">
-              
-                  {plant.name} <br></br>
-                  Temprature Range: {plant.tempRange} <br></br>
-                  Humidity Range: {plant.humRange} <br></br>
-                  Age: {plant.age}
-              
+              {plant.name} <br></br>
+              Temprature Range: {plant.tempRange} <br></br>
+              Humidity Range: {plant.humRange} <br></br>
+              Age: {plant.age}
             </p>
           </div>
         </div>
@@ -159,6 +158,17 @@ const Plants = () => {
             name="age"
             className="form-label"
             value={newPlantform.age}
+            onChange={handleChange}
+          ></input>
+          <br></br>
+          <label>Link to plant image</label>
+          <br></br>
+          <input
+            type="text"
+            id="imgsrc"
+            name="src"
+            className="form-label"
+            value={newPlantform.src}
             onChange={handleChange}
           ></input>
           <br></br>
