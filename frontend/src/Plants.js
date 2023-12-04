@@ -130,8 +130,12 @@ const Plants = () => {
             name="name"
             value={newPlantform.name}
             onChange={handleChange}
-            className="form-label"
+            className={`form-control ${
+              formValidationErrors.name ? "is-invalid" : ""
+            }`}
           ></input>
+          <div className="valid-feedback">Looks good!</div>
+          <div className="invalid-feedback">Plant Name is required</div>
           <br></br>
           <label>Temprature Range:</label> <br></br>
           <input
@@ -140,8 +144,12 @@ const Plants = () => {
             name="tempRange"
             value={newPlantform.tempRange}
             onChange={handleChange}
-            className="form-label"
+            className={`form-control ${
+              formValidationErrors.tempRange ? "is-invalid" : ""
+            }`}
           ></input>
+          <div className="valid-feedback">Looks good!</div>
+          <div className="invalid-feedback">Temperature Range is required</div>
           <br></br>
           <label>Humidity Range: </label> <br></br>
           <input
@@ -150,8 +158,12 @@ const Plants = () => {
             name="humRange"
             value={newPlantform.humRange}
             onChange={handleChange}
-            className="form-label"
+            className={`form-control ${
+              formValidationErrors.humRange ? "is-invalid" : ""
+            }`}
           ></input>
+          <div className="valid-feedback">Looks good!</div>
+          <div className="invalid-feedback">Humidity Range is required</div>
           <br></br>
           <label>Age</label>
           <br></br>
@@ -159,10 +171,14 @@ const Plants = () => {
             type="text"
             id="age"
             name="age"
-            className="form-label"
+            className={`form-control ${
+              formValidationErrors.age ? "is-invalid" : ""
+            }`}
             value={newPlantform.age}
             onChange={handleChange}
           ></input>
+          <div className="valid-feedback">Looks good!</div>
+          <div className="invalid-feedback">Age is required</div>
           <br></br>
           <label>Link to plant image</label>
           <br></br>
@@ -170,10 +186,14 @@ const Plants = () => {
             type="text"
             id="imgsrc"
             name="src"
-            className="form-label"
+            className={`form-control ${
+              formValidationErrors.link ? "is-invalid" : ""
+            }`}
             value={newPlantform.src}
             onChange={handleChange}
           ></input>
+          <div className="valid-feedback">Looks good!</div>
+          <div className="invalid-feedback">A link is required</div>
           <br></br>
           <button type="submit" className="btn btn-md btn-primary">
             Add Plant
