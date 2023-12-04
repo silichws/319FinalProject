@@ -18,7 +18,11 @@ cloud access in this class.).
 - Data can also be added with the same `/add` api.
 - This is done through the form that exists on the website in the Information/Data management page.
 
-## Adding A new Plant
+## Importing Plant Data
+- Plant Data examples can be found in the plants.json file in the /backend directory.
+- thisdata needs to be in a mongodb collection called "plantInfo". Setup for the mongodb collection is the same as in the Importng Data section besides the name.
+
+## Adding new Plant data
 - When adding a new plant, a link to the image for the plant is required. To use a preset image use the link http://127.0.0.1:8081/images/snake.jpeg
 
 ## Additional set up
