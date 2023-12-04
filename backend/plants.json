@@ -1,0 +1,32 @@
+{
+  "plants": [
+    {
+      "name": "Snake Plant",
+      "tempRange": "65-75",
+      "humRange": "40-60",
+      "age": "1 year",
+      "src": "./images/snake.jpeg"
+    },
+    {
+      "name": "Widow's-thrill",
+      "tempRange": "65-75",
+      "humRange": "40-60",
+      "age": "2 years",
+      "src": "./images/widow.jpeg"
+    },
+    {
+      "name": "Peace Lily",
+      "tempRange": "65-75",
+      "humRange": "40-60",
+      "age": "2 years",
+      "src": "./images/peace.jpeg"
+    },
+    {
+      "name": "g",
+      "tempRange": "22-22",
+      "humRange": "22-22",
+      "age": "1",
+      "src": ""
+    }
+  ]
+}

@@ -18,6 +18,16 @@ cloud access in this class.).
 - Data can also be added with the same `/add` api.
 - This is done through the form that exists on the website in the Information/Data management page.
 
+## Importing Plant Data
+- Plant Data examples can be found in the plants.json file in the /backend directory.
+- thisdata needs to be in a mongodb collection called "plantInfo". Setup for the mongodb collection is the same as in the Importng Data section besides the name.
+
+## Adding new Plant data
+- When adding a new plant, a link to the image for the plant is required. To use a preset image use the link:
+- http://127.0.0.1:8081/images/snake.jpeg
+- http://127.0.0.1:8081/images/peace.jpeg
+- http://127.0.0.1:8081/images/widow.jpeg
+
 ## Additional set up
 - To add the data on it's own, a cronjob will be needed to gather the data. 
 - Assuming your pi has a temperature reader set up, simply direct the cronjob to run however often you want to gather data to the cronjob.py file.
