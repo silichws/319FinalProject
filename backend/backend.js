@@ -117,8 +117,6 @@ app.delete("/delete", async (req, res) => {
 //############ PLANT REQUESTS #############
 
 app.get("/getPlants", async (req, res) => {
-  // const path = 'plants.json'
-  // var data = JSON.parse(fs.readFileSync(path))
   await client.connect();
   console.log("Node connected successfully to GET MongoDB plants");
   const query = {};

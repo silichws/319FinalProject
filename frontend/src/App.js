@@ -57,7 +57,7 @@ const App = () => {
           id="navbtn"
           onClick={() => showInfo()}
         >
-          Show Information
+          Information
         </button>
         <button
           className="btn btn-md btn-primary"

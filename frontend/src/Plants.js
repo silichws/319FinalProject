@@ -3,6 +3,7 @@ import "./App.css";
 
 const Plants = () => {
   const [plants, setPlants] = useState([]);
+  const [numPlants, setNumPlants] = useState(0);
 
   const [newPlantform, setNewPlantForm] = useState({
     name: "",
@@ -29,6 +30,7 @@ const Plants = () => {
   }, []);
 
   function loadInfo(data) {
+    setNumPlants(data.length);
     for (let i = 0; i < data.length; i++) {
       const element = data[i];
       plants.push(element);
@@ -78,7 +80,7 @@ const Plants = () => {
           console.log(data);
         });
       setNewPlantForm({
-        name: "Updated",
+        name: "New plant added",
         tempRange: "",
         humRange: "",
         age: "",
@@ -113,10 +115,11 @@ const Plants = () => {
     <div>
       <div>
         <h2 id="plantHeader">Meet our plants</h2>
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
-          {renderedOutput}
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3" style={{ marginTop: "10px" }}>
+          {numPlants > 0 ? renderedOutput : "No plants available. Enter new ones below. (See README for available default photos) "}
         </div>
       </div>
+      <hr></hr>
       <h2>Add Plant</h2>
       <div className="g-3 col-md-3 formBorder">
         <form className="row" id="checkout-form" onSubmit={handleSubmit}>
