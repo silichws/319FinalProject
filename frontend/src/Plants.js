@@ -58,6 +58,12 @@ const Plants = () => {
     if (newPlantform.humRange.trim() === "") {
       errors.humRange = "Humidity is required";
     }
+    if (newPlantform.age.trim() === "") {
+      errors.age = "Age is required";
+    }
+    if (newPlantform.src.trim() === "") {
+      errors.link = "Src is required";
+    }
 
     if (Object.keys(errors).length === 0) {
       // Validation correct. Put API call here
