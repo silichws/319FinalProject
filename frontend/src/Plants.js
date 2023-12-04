@@ -11,7 +11,7 @@ const Plants = () => {
     age: "",
     src: "",
   });
-  // src: http://127.0.0.1:8081/ for plant images in backend
+  // src: http://127.0.0.1:8081/images/ for plant images in backend
 
   const [formValidationErrors, setFormValidationErrors] = useState({});
 

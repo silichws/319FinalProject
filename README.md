@@ -18,6 +18,9 @@ cloud access in this class.).
 - Data can also be added with the same `/add` api.
 - This is done through the form that exists on the website in the Information/Data management page.
 
+## Adding A new Plant
+- When adding a new plant, a link to the image for the plant is required. To use a preset image use the link http://127.0.0.1:8081/images/snake.jpeg
+
 ## Additional set up
 - To add the data on it's own, a cronjob will be needed to gather the data. 
 - Assuming your pi has a temperature reader set up, simply direct the cronjob to run however often you want to gather data to the cronjob.py file.
