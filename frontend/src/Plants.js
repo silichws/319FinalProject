@@ -9,7 +9,7 @@ const Plants = () => {
     tempRange: "",
     humRange: "",
     age: "",
-    src: "",
+    src: "http://127.0.0.1:8081/",
   });
 
   const [formValidationErrors, setFormValidationErrors] = useState({});
@@ -20,7 +20,7 @@ const Plants = () => {
       .then((data) => {
         console.log("setting data:");
         console.log(data);
-        loadInfo(data.plants);
+        loadInfo(data);
       })
       .catch((error) => {
         console.log("error: data not found");

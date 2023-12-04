@@ -3,8 +3,12 @@ var cors = require("cors");
 var app = express();
 var fs = require("fs");
 var bodyParser = require("body-parser");
+
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static("public"));
+app.use("/images", express.static("images"));
+
 const port = "8081";
 const host = "localhost";
 app.listen(port, () => {
@@ -18,6 +22,7 @@ const dbName = "reactdata";
 const client = new MongoClient(url);
 const db = client.db(dbName);
 const collection = "piData";
+const plantCollection = "plantInfo"
 
 app.get("/list", async (req, res) => {
   await client.connect();
@@ -111,11 +116,21 @@ app.delete("/delete", async (req, res) => {
 
 //############ PLANT REQUESTS #############
 
-app.get("/getPlants", (req, res) => {
-  const path = 'plants.json'
-  var data = JSON.parse(fs.readFileSync(path))
-  res.status(200)
-  res.send(data)
+app.get("/getPlants", async (req, res) => {
+  // const path = 'plants.json'
+  // var data = JSON.parse(fs.readFileSync(path))
+  await client.connect();
+  console.log("Node connected successfully to GET MongoDB plants");
+  const query = {};
+  const results = await db
+  .collection(plantCollection)
+  .find(query)
+  .sort({ id: -1 })
+  .limit(48)
+  .toArray();
+  console.log(results);
+  res.status(200);
+  res.send(results);
 });
 
 app.post("/addPlant", (req, res) => {
