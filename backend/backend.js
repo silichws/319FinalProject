@@ -27,7 +27,7 @@ const plantCollection = "plantInfo";
 app.get("/list", async (req, res) => {
   await client.connect();
   console.log("Node connected successfully to GET MongoDB");
-  const query = {};
+  const query = {location:"1"};
   const results = await db
     .collection(collection)
     .find(query)
@@ -39,10 +39,11 @@ app.get("/list", async (req, res) => {
   res.send(results);
 });
 
-app.get("/most-recent", async (req, res) => {
+app.get("/most-recent/:loc", async (req, res) => {
+  const location = req.params.loc;
   await client.connect();
   console.log("Node connected successfully to GET MongoDB");
-  const query = {};
+  const query = {location:location};
   const results = await db
     .collection(collection)
     .find(query)
