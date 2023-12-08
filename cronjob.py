@@ -38,8 +38,8 @@ while True: # Will go until it gets a valid reading to log
 		# print(temp_celsius)
 		# print(cpu_temp_f)
 		# output to file
-		timestamp = datetime.now().strftime("%Y-%b-%d-%H:%M:%S")
-		entriesValue = "{\"id\": \"" + timestamp + "\", \"temp\":\"" + str(temperature_f)+ " \",  \"humidity\": \""+ str(humidity) + "\"}," + "\n"
+		#timestamp = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
+		#entriesValue = "{\"id\": \"" + timestamp + "\", \"temp\":\"" + str(temperature_f)+ " \",  \"humidity\": \""+ str(humidity) + "\"}," + "\n"
 
 		# with open("cron.txt", "a") as file:
 		# 	file.write(entriesValue)
