@@ -11,8 +11,12 @@ app.use("/images", express.static("images"));
 
 const port = "8081";
 const host = "localhost";
+const louderHost = "10.8.181.34"
+// app.listen(port, () => {
+//   console.log("App listening at http://%s:%s", host, port);
+// });
 app.listen(port, () => {
-  console.log("App listening at http://%s:%s", host, port);
+  console.log("App listening at http://%s:%s", louderHost, port);
 });
 
 const { MongoClient } = require("mongodb");

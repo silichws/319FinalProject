@@ -3,6 +3,8 @@ import json
 
 url = "http://localhost:8081/add"
 
+urlOut = "http://10.8.181.34:8081/add"
+
 headers = {
   'Content-Type': 'application/json'
 }
@@ -51,7 +53,7 @@ while True: # Will go until it gets a valid reading to log
   			"humidity": hum_send,
 			"location": "1"
 		})
-		response = requests.request("POST", url, headers=headers, data=payload)
+		response = requests.request("POST", urlOut, headers=headers, data=payload)
 
 		 # cron job output gets logged, so I can use this as debugging.
 		print(response.text)
