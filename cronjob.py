@@ -3,6 +3,8 @@ import json
 
 url = "http://localhost:8081/add"
 
+urlOut = "http://10.8.181.34:8081/add"
+
 headers = {
   'Content-Type': 'application/json'
 }
@@ -36,12 +38,12 @@ while True: # Will go until it gets a valid reading to log
 		# print(temp_celsius)
 		# print(cpu_temp_f)
 		# output to file
-		timestamp = datetime.now().strftime("%Y-%b-%d-%H:%M:%S")
-		entriesValue = "{\"id\": \"" + timestamp + "\", \"temp\":\"" + str(temperature_f)+ " \",  \"humidity\": \""+ str(humidity) + "\"}," + "\n"
+		#timestamp = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
+		#entriesValue = "{\"id\": \"" + timestamp + "\", \"temp\":\"" + str(temperature_f)+ " \",  \"humidity\": \""+ str(humidity) + "\"}," + "\n"
 
 		# with open("cron.txt", "a") as file:
 		# 	file.write(entriesValue)
-		timestamp = datetime.now().strftime("%Y-%B-%d-%H:%M")
+		timestamp = datetime.now().strftime("%Y-%m-%d-%H:%M")
 		temp_send = str(temperature_f)
 		hum_send = str(humidity) 
 
@@ -51,7 +53,7 @@ while True: # Will go until it gets a valid reading to log
   			"humidity": hum_send,
 			"location": "1"
 		})
-		response = requests.request("POST", url, headers=headers, data=payload)
+		response = requests.request("POST", urlOut, headers=headers, data=payload)
 
 		 # cron job output gets logged, so I can use this as debugging.
 		print(response.text)
