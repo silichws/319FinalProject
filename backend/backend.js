@@ -24,10 +24,11 @@ const db = client.db(dbName);
 const collection = "piData";
 const plantCollection = "plantInfo";
 
-app.get("/list", async (req, res) => {
+app.get("/list/:loc", async (req, res) => {
+  const location = req.params.loc;
   await client.connect();
   console.log("Node connected successfully to GET MongoDB");
-  const query = {location:"1"};
+  const query = {location:location};
   const results = await db
     .collection(collection)
     .find(query)
@@ -63,11 +64,13 @@ app.post("/add", async (req, res) => {
   const id = values[0];
   const temp = values[1];
   const humidity = values[2];
+  const location = values[3];
 
   const newDoc = {
     id: id,
     temp: temp,
     humidity: humidity,
+    location: location,
   };
   const results = await db.collection(collection).insertOne(newDoc);
   res.status(200);
@@ -94,11 +97,13 @@ app.put("/update", async (req, res) => {
   const id = values[0];
   const temp = values[1];
   const humidity = values[2];
+  const location = values[3];
 
   const newDoc = {
     id: id,
     temp: temp,
     humidity: humidity,
+    location: location,
   };
   const results = await db.collection(collection).insertOne(newDoc);
   res.status(200);

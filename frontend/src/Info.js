@@ -12,25 +12,12 @@ const Info = () => {
   const [temperatures, setTemperatures] = useState([]);
   const [humidity, sethumidity] = useState([]);
 
-  const reload = async () => {
-    console.log("reloading");
-
-    // await fetch("http://localhost:8081/list")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("loading new data");
-	// 	setLabels([]);
-	// 	console.log(labels.length);
-    //     loadInfo(data);
-	// 	console.log("done loading new data");
-    //   })
-    //   .catch((error) => {
-    //     console.log("reload error: data not found");
-    //   });
-  };
+  const [labels2, setLabels2] = useState([]);
+  const [temperatures2, setTemperatures2] = useState([]);
+  const [humidity2, sethumidity2] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8081/list")
+    fetch("http://localhost:8081/list/1")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -39,11 +26,21 @@ const Info = () => {
       .catch((error) => {
         console.log("error: data not found");
       });
+
+    fetch("http://localhost:8081/list/2")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        loadInfo2(data);
+      })
+      .catch((error) => {
+        console.log("error: data not found");
+      });
   }, []);
 
   function loadInfo(data) {
     console.log("data length " + labels.length);
-    
+
     for (var i = 0; i < data.length; i++) {
       let timestamp = data[i].id;
       let temp = data[i].temp;
@@ -52,9 +49,23 @@ const Info = () => {
       labels.push(timestamp);
       temperatures.push(temp);
       humidity.push(humid);
-      
     }
-	console.log(labels.length);
+    console.log(labels.length);
+  }
+
+  function loadInfo2(data) {
+    console.log("data length " + labels.length);
+
+    for (var i = 0; i < data.length; i++) {
+      let timestamp = data[i].id;
+      let temp = data[i].temp;
+      let humid = data[i].humidity;
+
+      labels2.push(timestamp);
+      temperatures2.push(temp);
+      humidity2.push(humid);
+    }
+    console.log(labels.length);
   }
 
   const data = {
@@ -79,6 +90,28 @@ const Info = () => {
     ],
   };
 
+  const data2 = {
+    labels: labels2.reverse(),
+    datasets: [
+      {
+        label: "Temperature °F",
+        data: temperatures2.reverse(),
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        borderWidth: 1,
+        fill: false,
+      },
+      {
+        label: "Humidity %",
+        data: humidity2.reverse(),
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderWidth: 1,
+        fill: false,
+      },
+    ],
+  };
+
   const options = {
     scales: {
       y: {
@@ -90,20 +123,24 @@ const Info = () => {
 
   return (
     <div>
-      <h1 id="topThing">Data Management</h1>
-
+      <h1 className="topThing">Data Management</h1>
+      <h3 className="topThing">Location 1</h3>
       <Line data={data} options={options} />
+
+      <hr></hr>
+      <br></br>
+      <h3 className="topThing">Location 2</h3>
+      <Line data={data2} options={options} />
 
       <div>
         <hr></hr>
+
         <div className="apiCalls">
-          <Form reloadPage={reload} />
+          <Form />
           <DeleteForm />
           <EditForm />
         </div>
       </div>
-
-      {/* <div id="showData"></div> */}
     </div>
   );
 };

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
-const Form = ({reloadPage}) => {
+const Form = () => {
   const [formData, setFormData] = useState({
     time: "",
     temp: "",
     hum: "",
+    loc: "",
   });
 
   const [validationErrors, setValidationErrors] = useState({});
@@ -27,6 +28,9 @@ const Form = ({reloadPage}) => {
     if (formData.hum.trim() === "") {
       errors.hum = "Humidity is required";
     }
+    if (formData.loc.trim() === "") {
+      errors.loc = "Location is required";
+    }
 
     if (Object.keys(errors).length === 0) {
       // Validation correct. Put API call here
@@ -40,18 +44,20 @@ const Form = ({reloadPage}) => {
           id: formData.time,
           temp: formData.temp,
           humidity: formData.hum,
+          location: formData.loc,
         }),
       })
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
         });
-		setFormData({
-        time: "Added",
+      setFormData({
+        time: "",
         temp: "",
         hum: "",
+        loc: "",
       });
-	  reloadPage();
+      alert("New data add for location " + formData.loc);
     } else {
       setValidationErrors(errors);
     }
@@ -108,6 +114,22 @@ const Form = ({reloadPage}) => {
           />
           <div className="valid-feedback">Looks good!</div>
           <div className="invalid-feedback">Humidity is required</div>
+
+          <label htmlFor="inputLoc" className="form-label">
+            Location
+          </label>
+          <input
+            type="text"
+            className={`form-control ${
+              validationErrors.loc ? "is-invalid" : ""
+            }`}
+            id="inputLoc"
+            name="loc"
+            value={formData.loc}
+            onChange={handleChange}
+          />
+          <div className="valid-feedback">Looks good!</div>
+          <div className="invalid-feedback">Location is required</div>
         </div>
 
         <button type="submit" className="btn btn-success text-dark makeApiCall">

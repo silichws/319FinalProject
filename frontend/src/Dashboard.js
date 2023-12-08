@@ -75,7 +75,7 @@ const Dashboard = () => {
       <div className="aboveGuage">
         <h1>Dashboard</h1>
         <h3>Location 1</h3>
-        <p>Last data Last recorded temperature taken at {timestamp} cst.</p>
+        <p>Last recorded data taken at {timestamp} cst.</p>
       </div>
       <div className="controlGuages">
         <div className="guageBorder">
@@ -208,7 +208,7 @@ const Dashboard = () => {
 
       <div className="aboveGuage">
         <h3>Location 2</h3>
-        <p>Last data Last recorded temperature taken at {timestamp2} cst.</p>
+        <p>Last recorded data taken at {timestamp2} cst.</p>
       </div>
       <div className="controlGuages">
         <div className="guageBorder">

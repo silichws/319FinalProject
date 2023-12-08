@@ -48,7 +48,8 @@ while True: # Will go until it gets a valid reading to log
 		payload = json.dumps({
   			"id": timestamp,
   			"temp": temp_send,
-  			"humidity": hum_send
+  			"humidity": hum_send,
+			"location": "1"
 		})
 		response = requests.request("POST", url, headers=headers, data=payload)
 

@@ -86,12 +86,13 @@ const Plants = () => {
           console.log(data);
         });
       setNewPlantForm({
-        name: "New plant added",
+        name: "",
         tempRange: "",
         humRange: "",
         age: "",
         src: "",
       });
+      alert("New plant added");
     } else {
       setFormValidationErrors(errors);
     }
