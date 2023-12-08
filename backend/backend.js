@@ -11,6 +11,7 @@ app.use("/images", express.static("images"));
 
 const port = "8081";
 const host = "localhost";
+// Change to address depending on hosting
 const louderHost = "10.8.181.34"
 // app.listen(port, () => {
 //   console.log("App listening at http://%s:%s", host, port);
@@ -31,7 +32,7 @@ const plantCollection = "plantInfo";
 app.get("/list/:loc", async (req, res) => {
   const location = req.params.loc;
   await client.connect();
-  console.log("Node connected successfully to GET MongoDB");
+  console.log("Node connected successfully to GET MongoDB for list");
   const query = {location:location};
   const results = await db
     .collection(collection)
@@ -47,7 +48,7 @@ app.get("/list/:loc", async (req, res) => {
 app.get("/most-recent/:loc", async (req, res) => {
   const location = req.params.loc;
   await client.connect();
-  console.log("Node connected successfully to GET MongoDB");
+  console.log("Node connected successfully to GET MongoDB for most recent");
   const query = {location:location};
   const results = await db
     .collection(collection)
@@ -63,7 +64,7 @@ app.post("/add", async (req, res) => {
   await client.connect();
   var key = Object.keys(req.body);
   var values = Object.values(req.body);
-  console.log(values);
+  // console.log(values);
 
   const id = values[0];
   const temp = values[1];
@@ -96,7 +97,7 @@ app.put("/update", async (req, res) => {
 
   var key = Object.keys(req.body);
   var values = Object.values(req.body);
-  console.log(values);
+  // console.log(values);
 
   const id = values[0];
   const temp = values[1];
@@ -116,7 +117,7 @@ app.put("/update", async (req, res) => {
 
 app.delete("/delete", async (req, res) => {
   await client.connect();
-  console.log(req.body["id"]);
+  // console.log(req.body["id"]);
   let query = { id: req.body["id"] };
   const results = await db.collection(collection).deleteOne(query);
   // let results = "none";
@@ -136,7 +137,7 @@ app.get("/getPlants", async (req, res) => {
     .sort({ id: -1 })
     .limit(48)
     .toArray();
-  console.log(results);
+  // console.log(results);
   res.status(200);
   res.send(results);
 });
