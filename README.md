@@ -34,6 +34,6 @@ cloud access in this class.).
 - Make sure you set the path to where your file is located.
 
 ```cron
-0,5 * * * * cd 319stuff/final && /usr/bin/python3 /home/pi/319stuff/final/cronjob.py
+0,35 * * * * cd 319stuff/final && /usr/bin/python3 /home/pi/319stuff/final/cronjob.py
 
 ```

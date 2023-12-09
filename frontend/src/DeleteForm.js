@@ -35,8 +35,9 @@ const DeleteForm = () => {
         .then((response) => response.json())
         .then((data) => {
           setFormData({
-            time: "Deleted",
+            time: "",
           });
+          alert("Data has been deleted");
         })
         .catch((err) => {console.log("Errror:" + err);
         setFormData({

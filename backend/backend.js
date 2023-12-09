@@ -12,7 +12,13 @@ app.use("/images", express.static("images"));
 const port = "8081";
 const host = "localhost";
 // Change to address depending on hosting
+
+//home
 const louderHost = "10.8.181.34"
+
+// eduroam
+// const louderHost = "10.48.40.36";
+
 // app.listen(port, () => {
 //   console.log("App listening at http://%s:%s", host, port);
 // });
@@ -64,7 +70,7 @@ app.post("/add", async (req, res) => {
   await client.connect();
   var key = Object.keys(req.body);
   var values = Object.values(req.body);
-  // console.log(values);
+  console.log(values);
 
   const id = values[0];
   const temp = values[1];
