@@ -43,7 +43,7 @@ while True: # Will go until it gets a valid reading to log
 
 		# with open("cron.txt", "a") as file:
 		# 	file.write(entriesValue)
-		timestamp = datetime.now().strftime("%Y-%m-%d-%H:%M")
+		timestamp = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
 		temp_send = str(temperature_f)
 		hum_send = str(humidity) 
 
